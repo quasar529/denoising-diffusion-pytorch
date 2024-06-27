@@ -44,14 +44,14 @@ parser.add_argument("--image_size", type=int, default=32, help="Image size")
 parser.add_argument("--timestep_respacing", type=str, default="1000", help="Timestep respacing")
 parser.add_argument("--num_channels", type=int, default=3, help="Number of channels")
 parser.add_argument("--num_fid_samples", type=int, default=10000, help="Number of FID samples")
-parser.add_argument("--train_batch_size", type=int, default=512, help="Training batch size")
-parser.add_argument("--train_num_steps", type=int, default=10000, help="Number of training steps")
+parser.add_argument("--train_batch_size", type=int, default=8192, help="Training batch size")
+parser.add_argument("--train_num_steps", type=int, default=100000, help="Number of training steps")
 parser.add_argument("--gradient_accumulate_every", type=int, default=1, help="Gradient accumulation steps")
 parser.add_argument("--ema_decay", type=float, default=0.995, help="EMA decay")
 parser.add_argument("--model_dim", type=int, default=64, help="Model dimension")
 parser.add_argument("--lr", type=float, default=8e-5, help="Learning rate")
 parser.add_argument("--timesteps", type=int, default=1000, help="Number of timesteps")
-
+parser.add_argument("--sampling_timesteps", type=int, default=500, help="Number of sampling timesteps")
 args = parser.parse_args()
 
 
@@ -274,7 +274,7 @@ def train(trainset):
         model,
         image_size=args.image_size,
         timesteps=args.timesteps,  # number of steps
-        sampling_timesteps=500,  # number of sampling timesteps (using ddim for faster inference [see citation for ddim paper])
+        sampling_timesteps=args.sampling_timesteps,  # number of sampling timesteps (using ddim for faster inference [see citation for ddim paper])
     )
 
     trainer = Trainer(
@@ -300,5 +300,6 @@ if __name__ == "__main__":
             T.ToTensor(),
         ]
     )
-    trainset = ImageNetDS(root="../ImageNet32", img_size=32, train=True, transform=transform)
+    trainset = ImageNetDS(root="../../ImageNet32", img_size=32, train=True, transform=transform)
+    print(len(trainset))
     train(trainset)

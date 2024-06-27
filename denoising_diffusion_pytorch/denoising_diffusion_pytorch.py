@@ -5,6 +5,7 @@ from random import random
 from functools import partial
 from collections import namedtuple
 from multiprocessing import cpu_count
+import wandb
 
 import torch
 from torch import nn, einsum
@@ -16,7 +17,7 @@ from torch.utils.data import Dataset, DataLoader
 from torch.optim import Adam
 
 from torchvision import transforms as T, utils
-
+from torchvision.utils import make_grid
 from einops import rearrange, reduce, repeat
 from einops.layers.torch import Rearrange
 
@@ -25,6 +26,7 @@ from tqdm.auto import tqdm
 from ema_pytorch import EMA
 
 from accelerate import Accelerator
+from accelerate.utils import LoggerType
 
 from denoising_diffusion_pytorch.attend import Attend
 
@@ -967,7 +969,40 @@ class Trainer:
         # accelerator
 
         self.accelerator = Accelerator(
-            split_batches=split_batches, mixed_precision=mixed_precision_type if amp else "no"
+            split_batches=split_batches, mixed_precision=mixed_precision_type if amp else "no", log_with="wandb"
+        )
+
+        self.accelerator.init_trackers(
+            "denoising-diffusion-pytorch",
+            config={
+                "train_batch_size": train_batch_size,
+                "gradient_accumulate_every": gradient_accumulate_every,
+                "augment_horizontal_flip": augment_horizontal_flip,
+                "train_lr": train_lr,
+                "train_num_steps": train_num_steps,
+                "ema_update_every": ema_update_every,
+                "ema_decay": ema_decay,
+                "adam_betas": adam_betas,
+                "save_and_sample_every": save_and_sample_every,
+                "num_samples": num_samples,
+                "results_folder": results_folder,
+                "amp": amp,
+                "mixed_precision_type": mixed_precision_type,
+                "split_batches": split_batches,
+                "convert_image_to": convert_image_to,
+                "calculate_fid": calculate_fid,
+                "inception_block_idx": inception_block_idx,
+                "max_grad_norm": max_grad_norm,
+                "num_fid_samples": num_fid_samples,
+                "save_best_and_latest_only": save_best_and_latest_only,
+            },
+            init_kwargs={
+                "wandb": {
+                    "entity": "quasar529",
+                    "group": "a6000",
+                    "name": f"{train_batch_size}batch-{train_num_steps}train_num_steps-{num_fid_samples}num_fid_samples",
+                }
+            },
         )
 
         # model
@@ -1002,15 +1037,16 @@ class Trainer:
 
         # dataset and dataloader
 
-        self.ds = Dataset(
-            folder, self.image_size, augment_horizontal_flip=augment_horizontal_flip, convert_image_to=convert_image_to
-        )
+        # self.ds = Dataset(
+        #     folder, self.image_size, augment_horizontal_flip=augment_horizontal_flip, convert_image_to=convert_image_to
+        # )
 
+        self.ds = folder
         assert (
             len(self.ds) >= 100
         ), "you should have at least 100 images in your folder. at least 10k images recommended"
 
-        dl = DataLoader(self.ds, batch_size=train_batch_size, shuffle=True, pin_memory=True, num_workers=cpu_count())
+        dl = DataLoader(self.ds, batch_size=train_batch_size, shuffle=True, pin_memory=True, num_workers=0)
 
         dl = self.accelerator.prepare(dl)
         self.dl = cycle(dl)
@@ -1126,10 +1162,12 @@ class Trainer:
                         loss = self.model(data)
                         loss = loss / self.gradient_accumulate_every
                         total_loss += loss.item()
+                        accelerator.log({"train/loss": loss})
 
                     self.accelerator.backward(loss)
 
                 pbar.set_description(f"loss: {total_loss:.4f}")
+                accelerator.log({"train/total_loss": total_loss, "step": self.step})
 
                 accelerator.wait_for_everyone()
                 accelerator.clip_grad_norm_(self.model.parameters(), self.max_grad_norm)
@@ -1143,7 +1181,7 @@ class Trainer:
                 if accelerator.is_main_process:
                     self.ema.update()
 
-                    if self.step != 0 and divisible_by(self.step, self.save_and_sample_every):
+                    if self.step != 0:  # and divisible_by(self.step, self.save_and_sample_every):
                         self.ema.ema_model.eval()
 
                         with torch.inference_mode():
@@ -1159,11 +1197,16 @@ class Trainer:
                             nrow=int(math.sqrt(self.num_samples)),
                         )
 
+                        images_to_log = all_images[:16]
+                        image_grid = make_grid(images_to_log, nrow=4, normalize=True, value_range=(-1, 1))
+                        # wandb.log({"generated_images": wandb.Image(image_grid)}, step=self.step)
+                        accelerator.log({"generated_images": wandb.Image(image_grid)})
                         # whether to calculate fid
 
                         if self.calculate_fid:
                             fid_score = self.fid_scorer.fid_score()
                             accelerator.print(f"fid_score: {fid_score}")
+                            accelerator.log({"val/fid_score": fid_score})
 
                         if self.save_best_and_latest_only:
                             if self.best_fid > fid_score:
