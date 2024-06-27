@@ -1181,7 +1181,7 @@ class Trainer:
                 if accelerator.is_main_process:
                     self.ema.update()
 
-                    if self.step != 0:  # and divisible_by(self.step, self.save_and_sample_every):
+                    if self.step != 0 and divisible_by(self.step, self.save_and_sample_every):
                         self.ema.ema_model.eval()
 
                         with torch.inference_mode():
