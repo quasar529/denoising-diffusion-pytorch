@@ -31,12 +31,14 @@ from einops.layers.torch import Rearrange
 
 from ema_pytorch import EMA
 from accelerate import Accelerator
+from accelerate import Accelerator, DeepSpeedPlugin
 
 from denoising_diffusion_pytorch.attend import Attend
 from denoising_diffusion_pytorch.version import __version__
 from denoising_diffusion_pytorch import Unet, GaussianDiffusion, Trainer
 
 import argparse
+os.environ["NCCL_P2P_DISABLE"] = "1"
 
 parser = argparse.ArgumentParser(description="Denoising Diffusion Probabilistic Models")
 
@@ -44,7 +46,7 @@ parser.add_argument("--image_size", type=int, default=32, help="Image size")
 parser.add_argument("--timestep_respacing", type=str, default="1000", help="Timestep respacing")
 parser.add_argument("--num_channels", type=int, default=3, help="Number of channels")
 parser.add_argument("--num_fid_samples", type=int, default=10000, help="Number of FID samples")
-parser.add_argument("--train_batch_size", type=int, default=8192, help="Training batch size")
+parser.add_argument("--train_batch_size", type=int, default=2048, help="Training batch size")
 parser.add_argument("--train_num_steps", type=int, default=100000, help="Number of training steps")
 parser.add_argument("--gradient_accumulate_every", type=int, default=1, help="Gradient accumulation steps")
 parser.add_argument("--ema_decay", type=float, default=0.995, help="EMA decay")
@@ -269,7 +271,7 @@ if not os.path.exists(f"./results/{datetime}"):
 
 def train(trainset):
     model = Unet(dim=args.model_dim, dim_mults=(1, 2, 4, 8), flash_attn=False)
-
+    print(model)
     diffusion = GaussianDiffusion(
         model,
         image_size=args.image_size,
@@ -290,7 +292,6 @@ def train(trainset):
         num_fid_samples=args.num_fid_samples,  # number of samples for calculating fid
         results_folder=f"./results/{datetime}",
     )
-
     trainer.train()
 
 
@@ -300,6 +301,10 @@ if __name__ == "__main__":
             T.ToTensor(),
         ]
     )
-    trainset = ImageNetDS(root="../../ImageNet32", img_size=32, train=True, transform=transform)
+    trainset = ImageNetDS(root="../ImageNet32", img_size=32, train=True, transform=transform)
     print(len(trainset))
+    num_gpus = torch.cuda.device_count()
+    print(f"Number of GPUs available: {num_gpus}")
+    for i in range(num_gpus):
+        print(f"GPU {i}: {torch.cuda.get_device_name(i)}")
     train(trainset)
