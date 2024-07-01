@@ -45,7 +45,7 @@ parser = argparse.ArgumentParser(description="Denoising Diffusion Probabilistic 
 parser.add_argument("--image_size", type=int, default=32, help="Image size")
 parser.add_argument("--timestep_respacing", type=str, default="1000", help="Timestep respacing")
 parser.add_argument("--num_channels", type=int, default=3, help="Number of channels")
-parser.add_argument("--num_fid_samples", type=int, default=10000, help="Number of FID samples")
+parser.add_argument("--num_fid_samples", type=int, default=2500, help="Number of FID samples")
 parser.add_argument("--train_batch_size", type=int, default=2048, help="Training batch size")
 parser.add_argument("--train_num_steps", type=int, default=100000, help="Number of training steps")
 parser.add_argument("--gradient_accumulate_every", type=int, default=1, help="Gradient accumulation steps")
@@ -54,6 +54,8 @@ parser.add_argument("--model_dim", type=int, default=64, help="Model dimension")
 parser.add_argument("--lr", type=float, default=8e-5, help="Learning rate")
 parser.add_argument("--timesteps", type=int, default=1000, help="Number of timesteps")
 parser.add_argument("--sampling_timesteps", type=int, default=500, help="Number of sampling timesteps")
+parser.add_argument("--save_and_sample_every", type=int, default=10000, help="Save and sample every")
+
 args = parser.parse_args()
 
 
@@ -291,6 +293,8 @@ def train(trainset):
         calculate_fid=True,  # whether to calculate fid during training
         num_fid_samples=args.num_fid_samples,  # number of samples for calculating fid
         results_folder=f"./results/{datetime}",
+        save_and_sample_every=args.save_and_sample_every,  # save and sample every
+
     )
     trainer.train()
 
