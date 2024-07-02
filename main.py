@@ -38,6 +38,7 @@ from denoising_diffusion_pytorch.version import __version__
 from denoising_diffusion_pytorch import Unet, GaussianDiffusion, Trainer
 
 import argparse
+
 os.environ["NCCL_P2P_DISABLE"] = "1"
 
 parser = argparse.ArgumentParser(description="Denoising Diffusion Probabilistic Models")
@@ -273,7 +274,6 @@ if not os.path.exists(f"./results/{datetime}"):
 
 def train(trainset):
     model = Unet(dim=args.model_dim, dim_mults=(1, 2, 4, 8), flash_attn=False)
-    print(model)
     diffusion = GaussianDiffusion(
         model,
         image_size=args.image_size,
@@ -294,7 +294,6 @@ def train(trainset):
         num_fid_samples=args.num_fid_samples,  # number of samples for calculating fid
         results_folder=f"./results/{datetime}",
         save_and_sample_every=args.save_and_sample_every,  # save and sample every
-
     )
     trainer.train()
 
