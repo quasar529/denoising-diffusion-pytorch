@@ -1,0 +1,1674 @@
+[2024-06-30 17:43:46,455] [INFO] [real_accelerator.py:203:get_accelerator] Setting ds_accelerator to cuda (auto detect)
+WARNING:torch.distributed.run:
+*****************************************
+Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+*****************************************
+[2024-06-30 17:43:49,996] [INFO] [real_accelerator.py:203:get_accelerator] Setting ds_accelerator to cuda (auto detect)
+[2024-06-30 17:43:50,028] [INFO] [real_accelerator.py:203:get_accelerator] Setting ds_accelerator to cuda (auto detect)
+Warning: The default cache directory for DeepSpeed Triton autotune, /home/cyoonjun/.triton/autotune, appears to be on an NFS system. While this is generally acceptable, if you experience slowdowns or hanging when DeepSpeed exits, it is recommended to set the TRITON_CACHE_DIR environment variable to a non-NFS path.
+[2024-06-30 17:43:50,080] [INFO] [real_accelerator.py:203:get_accelerator] Setting ds_accelerator to cuda (auto detect)
+Warning: The default cache directory for DeepSpeed Triton autotune, /home/cyoonjun/.triton/autotune, appears to be on an NFS system. While this is generally acceptable, if you experience slowdowns or hanging when DeepSpeed exits, it is recommended to set the TRITON_CACHE_DIR environment variable to a non-NFS path.
+Warning: The default cache directory for DeepSpeed Triton autotune, /home/cyoonjun/.triton/autotune, appears to be on an NFS system. While this is generally acceptable, if you experience slowdowns or hanging when DeepSpeed exits, it is recommended to set the TRITON_CACHE_DIR environment variable to a non-NFS path.
+[2024-06-30 17:43:50,192] [INFO] [real_accelerator.py:203:get_accelerator] Setting ds_accelerator to cuda (auto detect)
+[93m [WARNING] [0m async_io requires the dev libaio .so object and headers but these were not found.
+[93m [WARNING] [0m async_io: please install the libaio-devel package with yum
+[93m [WARNING] [0m If libaio is already installed (perhaps from source), try setting the CFLAGS and LDFLAGS environment variables to where it can be found.
+[93m [WARNING] [0m Please specify the CUTLASS repo directory as environment variable $CUTLASS_PATH
+[93m [WARNING] [0m async_io requires the dev libaio .so object and headers but these were not found.
+[93m [WARNING] [0m async_io requires the dev libaio .so object and headers but these were not found.
+Warning: The default cache directory for DeepSpeed Triton autotune, /home/cyoonjun/.triton/autotune, appears to be on an NFS system. While this is generally acceptable, if you experience slowdowns or hanging when DeepSpeed exits, it is recommended to set the TRITON_CACHE_DIR environment variable to a non-NFS path.
+[93m [WARNING] [0m async_io: please install the libaio-devel package with yum
+[93m [WARNING] [0m If libaio is already installed (perhaps from source), try setting the CFLAGS and LDFLAGS environment variables to where it can be found.
+[93m [WARNING] [0m Please specify the CUTLASS repo directory as environment variable $CUTLASS_PATH
+[93m [WARNING] [0m async_io: please install the libaio-devel package with yum
+[93m [WARNING] [0m If libaio is already installed (perhaps from source), try setting the CFLAGS and LDFLAGS environment variables to where it can be found.
+[93m [WARNING] [0m Please specify the CUTLASS repo directory as environment variable $CUTLASS_PATH
+[93m [WARNING] [0m async_io requires the dev libaio .so object and headers but these were not found.
+[93m [WARNING] [0m async_io: please install the libaio-devel package with yum
+[93m [WARNING] [0m If libaio is already installed (perhaps from source), try setting the CFLAGS and LDFLAGS environment variables to where it can be found.
+[93m [WARNING] [0m Please specify the CUTLASS repo directory as environment variable $CUTLASS_PATH
+[93m [WARNING] [0m sparse_attn requires a torch version >= 1.5 and < 2.0 but detected 2.0
+[93m [WARNING] [0m using untested triton version (2.0.0), only 1.0.0 is known to be compatible
+[93m [WARNING] [0m sparse_attn requires a torch version >= 1.5 and < 2.0 but detected 2.0
+[93m [WARNING] [0m using untested triton version (2.0.0), only 1.0.0 is known to be compatible
+[93m [WARNING] [0m sparse_attn requires a torch version >= 1.5 and < 2.0 but detected 2.0
+[93m [WARNING] [0m using untested triton version (2.0.0), only 1.0.0 is known to be compatible
+[93m [WARNING] [0m sparse_attn requires a torch version >= 1.5 and < 2.0 but detected 2.0
+[93m [WARNING] [0m using untested triton version (2.0.0), only 1.0.0 is known to be compatible
+1281167
+Number of GPUs available: 4
+GPU 0: NVIDIA RTX A6000
+GPU 1: NVIDIA RTX A6000
+GPU 2: NVIDIA RTX A6000
+GPU 3: NVIDIA RTX A6000
+Unet(
+  (init_conv): Conv2d(3, 64, kernel_size=(7, 7), stride=(1, 1), padding=(3, 3))
+  (time_mlp): Sequential(
+    (0): SinusoidalPosEmb()
+    (1): Linear(in_features=64, out_features=256, bias=True)
+    (2): GELU(approximate='none')
+    (3): Linear(in_features=256, out_features=256, bias=True)
+  )
+  (downs): ModuleList(
+    (0): ModuleList(
+      (0-1): 2 x ResnetBlock(
+        (mlp): Sequential(
+          (0): SiLU()
+          (1): Linear(in_features=256, out_features=128, bias=True)
+        )
+        (block1): Block(
+          (proj): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (norm): RMSNorm()
+          (act): SiLU()
+          (dropout): Dropout(p=0.0, inplace=False)
+        )
+        (block2): Block(
+          (proj): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (norm): RMSNorm()
+          (act): SiLU()
+          (dropout): Dropout(p=0.0, inplace=False)
+        )
+        (res_conv): Identity()
+      )
+      (2): LinearAttention(
+        (norm): RMSNorm()
+        (to_qkv): Conv2d(64, 384, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (to_out): Sequential(
+          (0): Conv2d(128, 64, kernel_size=(1, 1), stride=(1, 1))
+          (1): RMSNorm()
+        )
+      )
+      (3): Sequential(
+        (0): Rearrange('b c (h p1) (w p2) -> b (c p1 p2) h w', p1=2, p2=2)
+        (1): Conv2d(256, 64, kernel_size=(1, 1), stride=(1, 1))
+      )
+    )
+    (1): ModuleList(
+      (0-1): 2 x ResnetBlock(
+        (mlp): Sequential(
+          (0): SiLU()
+          (1): Linear(in_features=256, out_features=128, bias=True)
+        )
+        (block1): Block(
+          (proj): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (norm): RMSNorm()
+          (act): SiLU()
+          (dropout): Dropout(p=0.0, inplace=False)
+        )
+        (block2): Block(
+          (proj): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (norm): RMSNorm()
+          (act): SiLU()
+          (dropout): Dropout(p=0.0, inplace=False)
+        )
+        (res_conv): Identity()
+      )
+      (2): LinearAttention(
+        (norm): RMSNorm()
+        (to_qkv): Conv2d(64, 384, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (to_out): Sequential(
+          (0): Conv2d(128, 64, kernel_size=(1, 1), stride=(1, 1))
+          (1): RMSNorm()
+        )
+      )
+      (3): Sequential(
+        (0): Rearrange('b c (h p1) (w p2) -> b (c p1 p2) h w', p1=2, p2=2)
+        (1): Conv2d(256, 128, kernel_size=(1, 1), stride=(1, 1))
+      )
+    )
+    (2): ModuleList(
+      (0-1): 2 x ResnetBlock(
+        (mlp): Sequential(
+          (0): SiLU()
+          (1): Linear(in_features=256, out_features=256, bias=True)
+        )
+        (block1): Block(
+          (proj): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (norm): RMSNorm()
+          (act): SiLU()
+          (dropout): Dropout(p=0.0, inplace=False)
+        )
+        (block2): Block(
+          (proj): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (norm): RMSNorm()
+          (act): SiLU()
+          (dropout): Dropout(p=0.0, inplace=False)
+        )
+        (res_conv): Identity()
+      )
+      (2): LinearAttention(
+        (norm): RMSNorm()
+        (to_qkv): Conv2d(128, 384, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (to_out): Sequential(
+          (0): Conv2d(128, 128, kernel_size=(1, 1), stride=(1, 1))
+          (1): RMSNorm()
+        )
+      )
+      (3): Sequential(
+        (0): Rearrange('b c (h p1) (w p2) -> b (c p1 p2) h w', p1=2, p2=2)
+        (1): Conv2d(512, 256, kernel_size=(1, 1), stride=(1, 1))
+      )
+    )
+    (3): ModuleList(
+      (0-1): 2 x ResnetBlock(
+        (mlp): Sequential(
+          (0): SiLU()
+          (1): Linear(in_features=256, out_features=512, bias=True)
+        )
+        (block1): Block(
+          (proj): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (norm): RMSNorm()
+          (act): SiLU()
+          (dropout): Dropout(p=0.0, inplace=False)
+        )
+        (block2): Block(
+          (proj): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (norm): RMSNorm()
+          (act): SiLU()
+          (dropout): Dropout(p=0.0, inplace=False)
+        )
+        (res_conv): Identity()
+      )
+      (2): Attention(
+        (norm): RMSNorm()
+        (attend): Attend(
+          (attn_dropout): Dropout(p=0.0, inplace=False)
+        )
+        (to_qkv): Conv2d(256, 384, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (to_out): Conv2d(128, 256, kernel_size=(1, 1), stride=(1, 1))
+      )
+      (3): Conv2d(256, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    )
+  )
+  (ups): ModuleList(
+    (0): ModuleList(
+      (0-1): 2 x ResnetBlock(
+        (mlp): Sequential(
+          (0): SiLU()
+          (1): Linear(in_features=256, out_features=1024, bias=True)
+        )
+        (block1): Block(
+          (proj): Conv2d(768, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (norm): RMSNorm()
+          (act): SiLU()
+          (dropout): Dropout(p=0.0, inplace=False)
+        )
+        (block2): Block(
+          (proj): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (norm): RMSNorm()
+          (act): SiLU()
+          (dropout): Dropout(p=0.0, inplace=False)
+        )
+        (res_conv): Conv2d(768, 512, kernel_size=(1, 1), stride=(1, 1))
+      )
+      (2): Attention(
+        (norm): RMSNorm()
+        (attend): Attend(
+          (attn_dropout): Dropout(p=0.0, inplace=False)
+        )
+        (to_qkv): Conv2d(512, 384, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (to_out): Conv2d(128, 512, kernel_size=(1, 1), stride=(1, 1))
+      )
+      (3): Sequential(
+        (0): Upsample(scale_factor=2.0, mode='nearest')
+        (1): Conv2d(512, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      )
+    )
+    (1): ModuleList(
+      (0-1): 2 x ResnetBlock(
+        (mlp): Sequential(
+          (0): SiLU()
+          (1): Linear(in_features=256, out_features=512, bias=True)
+        )
+        (block1): Block(
+          (proj): Conv2d(384, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (norm): RMSNorm()
+          (act): SiLU()
+          (dropout): Dropout(p=0.0, inplace=False)
+        )
+        (block2): Block(
+          (proj): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (norm): RMSNorm()
+          (act): SiLU()
+          (dropout): Dropout(p=0.0, inplace=False)
+        )
+        (res_conv): Conv2d(384, 256, kernel_size=(1, 1), stride=(1, 1))
+      )
+      (2): LinearAttention(
+        (norm): RMSNorm()
+        (to_qkv): Conv2d(256, 384, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (to_out): Sequential(
+          (0): Conv2d(128, 256, kernel_size=(1, 1), stride=(1, 1))
+          (1): RMSNorm()
+        )
+      )
+      (3): Sequential(
+        (0): Upsample(scale_factor=2.0, mode='nearest')
+        (1): Conv2d(256, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      )
+    )
+    (2): ModuleList(
+      (0-1): 2 x ResnetBlock(
+        (mlp): Sequential(
+          (0): SiLU()
+          (1): Linear(in_features=256, out_features=256, bias=True)
+        )
+        (block1): Block(
+          (proj): Conv2d(192, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (norm): RMSNorm()
+          (act): SiLU()
+          (dropout): Dropout(p=0.0, inplace=False)
+        )
+        (block2): Block(
+          (proj): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (norm): RMSNorm()
+          (act): SiLU()
+          (dropout): Dropout(p=0.0, inplace=False)
+        )
+        (res_conv): Conv2d(192, 128, kernel_size=(1, 1), stride=(1, 1))
+      )
+      (2): LinearAttention(
+        (norm): RMSNorm()
+        (to_qkv): Conv2d(128, 384, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (to_out): Sequential(
+          (0): Conv2d(128, 128, kernel_size=(1, 1), stride=(1, 1))
+          (1): RMSNorm()
+        )
+      )
+      (3): Sequential(
+        (0): Upsample(scale_factor=2.0, mode='nearest')
+        (1): Conv2d(128, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      )
+    )
+    (3): ModuleList(
+      (0-1): 2 x ResnetBlock(
+        (mlp): Sequential(
+          (0): SiLU()
+          (1): Linear(in_features=256, out_features=128, bias=True)
+        )
+        (block1): Block(
+          (proj): Conv2d(128, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (norm): RMSNorm()
+          (act): SiLU()
+          (dropout): Dropout(p=0.0, inplace=False)
+        )
+        (block2): Block(
+          (proj): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (norm): RMSNorm()
+          (act): SiLU()
+          (dropout): Dropout(p=0.0, inplace=False)
+        )
+        (res_conv): Conv2d(128, 64, kernel_size=(1, 1), stride=(1, 1))
+      )
+      (2): LinearAttention(
+        (norm): RMSNorm()
+        (to_qkv): Conv2d(64, 384, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (to_out): Sequential(
+          (0): Conv2d(128, 64, kernel_size=(1, 1), stride=(1, 1))
+          (1): RMSNorm()
+        )
+      )
+      (3): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    )
+  )
+  (mid_block1): ResnetBlock(
+    (mlp): Sequential(
+      (0): SiLU()
+      (1): Linear(in_features=256, out_features=1024, bias=True)
+    )
+    (block1): Block(
+      (proj): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (norm): RMSNorm()
+      (act): SiLU()
+      (dropout): Dropout(p=0.0, inplace=False)
+    )
+    (block2): Block(
+      (proj): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (norm): RMSNorm()
+      (act): SiLU()
+      (dropout): Dropout(p=0.0, inplace=False)
+    )
+    (res_conv): Identity()
+  )
+  (mid_attn): Attention(
+    (norm): RMSNorm()
+    (attend): Attend(
+      (attn_dropout): Dropout(p=0.0, inplace=False)
+    )
+    (to_qkv): Conv2d(512, 384, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (to_out): Conv2d(128, 512, kernel_size=(1, 1), stride=(1, 1))
+  )
+  (mid_block2): ResnetBlock(
+    (mlp): Sequential(
+      (0): SiLU()
+      (1): Linear(in_features=256, out_features=1024, bias=True)
+    )
+    (block1): Block(
+      (proj): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (norm): RMSNorm()
+      (act): SiLU()
+      (dropout): Dropout(p=0.0, inplace=False)
+    )
+    (block2): Block(
+      (proj): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (norm): RMSNorm()
+      (act): SiLU()
+      (dropout): Dropout(p=0.0, inplace=False)
+    )
+    (res_conv): Identity()
+  )
+  (final_res_block): ResnetBlock(
+    (mlp): Sequential(
+      (0): SiLU()
+      (1): Linear(in_features=256, out_features=128, bias=True)
+    )
+    (block1): Block(
+      (proj): Conv2d(128, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (norm): RMSNorm()
+      (act): SiLU()
+      (dropout): Dropout(p=0.0, inplace=False)
+    )
+    (block2): Block(
+      (proj): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (norm): RMSNorm()
+      (act): SiLU()
+      (dropout): Dropout(p=0.0, inplace=False)
+    )
+    (res_conv): Conv2d(128, 64, kernel_size=(1, 1), stride=(1, 1))
+  )
+  (final_conv): Conv2d(64, 3, kernel_size=(1, 1), stride=(1, 1))
+)
+[2024-06-30 17:43:56,396] [INFO] [comm.py:637:init_distributed] cdb=None
+1281167
+Number of GPUs available: 4
+GPU 0: NVIDIA RTX A6000
+GPU 1: NVIDIA RTX A6000
+GPU 2: NVIDIA RTX A6000
+GPU 3: NVIDIA RTX A6000
+Unet(
+  (init_conv): Conv2d(3, 64, kernel_size=(7, 7), stride=(1, 1), padding=(3, 3))
+  (time_mlp): Sequential(
+    (0): SinusoidalPosEmb()
+    (1): Linear(in_features=64, out_features=256, bias=True)
+    (2): GELU(approximate='none')
+    (3): Linear(in_features=256, out_features=256, bias=True)
+  )
+  (downs): ModuleList(
+    (0): ModuleList(
+      (0-1): 2 x ResnetBlock(
+        (mlp): Sequential(
+          (0): SiLU()
+          (1): Linear(in_features=256, out_features=128, bias=True)
+        )
+        (block1): Block(
+          (proj): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (norm): RMSNorm()
+          (act): SiLU()
+          (dropout): Dropout(p=0.0, inplace=False)
+        )
+        (block2): Block(
+          (proj): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (norm): RMSNorm()
+          (act): SiLU()
+          (dropout): Dropout(p=0.0, inplace=False)
+        )
+        (res_conv): Identity()
+      )
+      (2): LinearAttention(
+        (norm): RMSNorm()
+        (to_qkv): Conv2d(64, 384, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (to_out): Sequential(
+          (0): Conv2d(128, 64, kernel_size=(1, 1), stride=(1, 1))
+          (1): RMSNorm()
+        )
+      )
+      (3): Sequential(
+        (0): Rearrange('b c (h p1) (w p2) -> b (c p1 p2) h w', p1=2, p2=2)
+        (1): Conv2d(256, 64, kernel_size=(1, 1), stride=(1, 1))
+      )
+    )
+    (1): ModuleList(
+      (0-1): 2 x ResnetBlock(
+        (mlp): Sequential(
+          (0): SiLU()
+          (1): Linear(in_features=256, out_features=128, bias=True)
+        )
+        (block1): Block(
+          (proj): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (norm): RMSNorm()
+          (act): SiLU()
+          (dropout): Dropout(p=0.0, inplace=False)
+        )
+        (block2): Block(
+          (proj): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (norm): RMSNorm()
+          (act): SiLU()
+          (dropout): Dropout(p=0.0, inplace=False)
+        )
+        (res_conv): Identity()
+      )
+      (2): LinearAttention(
+        (norm): RMSNorm()
+        (to_qkv): Conv2d(64, 384, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (to_out): Sequential(
+          (0): Conv2d(128, 64, kernel_size=(1, 1), stride=(1, 1))
+          (1): RMSNorm()
+        )
+      )
+      (3): Sequential(
+        (0): Rearrange('b c (h p1) (w p2) -> b (c p1 p2) h w', p1=2, p2=2)
+        (1): Conv2d(256, 128, kernel_size=(1, 1), stride=(1, 1))
+      )
+    )
+    (2): ModuleList(
+      (0-1): 2 x ResnetBlock(
+        (mlp): Sequential(
+          (0): SiLU()
+          (1): Linear(in_features=256, out_features=256, bias=True)
+        )
+        (block1): Block(
+          (proj): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (norm): RMSNorm()
+          (act): SiLU()
+          (dropout): Dropout(p=0.0, inplace=False)
+        )
+        (block2): Block(
+          (proj): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (norm): RMSNorm()
+          (act): SiLU()
+          (dropout): Dropout(p=0.0, inplace=False)
+        )
+        (res_conv): Identity()
+      )
+      (2): LinearAttention(
+        (norm): RMSNorm()
+        (to_qkv): Conv2d(128, 384, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (to_out): Sequential(
+          (0): Conv2d(128, 128, kernel_size=(1, 1), stride=(1, 1))
+          (1): RMSNorm()
+        )
+      )
+      (3): Sequential(
+        (0): Rearrange('b c (h p1) (w p2) -> b (c p1 p2) h w', p1=2, p2=2)
+        (1): Conv2d(512, 256, kernel_size=(1, 1), stride=(1, 1))
+      )
+    )
+    (3): ModuleList(
+      (0-1): 2 x ResnetBlock(
+        (mlp): Sequential(
+          (0): SiLU()
+          (1): Linear(in_features=256, out_features=512, bias=True)
+        )
+        (block1): Block(
+          (proj): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (norm): RMSNorm()
+          (act): SiLU()
+          (dropout): Dropout(p=0.0, inplace=False)
+        )
+        (block2): Block(
+          (proj): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (norm): RMSNorm()
+          (act): SiLU()
+          (dropout): Dropout(p=0.0, inplace=False)
+        )
+        (res_conv): Identity()
+      )
+      (2): Attention(
+        (norm): RMSNorm()
+        (attend): Attend(
+          (attn_dropout): Dropout(p=0.0, inplace=False)
+        )
+        (to_qkv): Conv2d(256, 384, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (to_out): Conv2d(128, 256, kernel_size=(1, 1), stride=(1, 1))
+      )
+      (3): Conv2d(256, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    )
+  )
+  (ups): ModuleList(
+    (0): ModuleList(
+      (0-1): 2 x ResnetBlock(
+        (mlp): Sequential(
+          (0): SiLU()
+          (1): Linear(in_features=256, out_features=1024, bias=True)
+        )
+        (block1): Block(
+          (proj): Conv2d(768, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (norm): RMSNorm()
+          (act): SiLU()
+          (dropout): Dropout(p=0.0, inplace=False)
+        )
+        (block2): Block(
+          (proj): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (norm): RMSNorm()
+          (act): SiLU()
+          (dropout): Dropout(p=0.0, inplace=False)
+        )
+        (res_conv): Conv2d(768, 512, kernel_size=(1, 1), stride=(1, 1))
+      )
+      (2): Attention(
+        (norm): RMSNorm()
+        (attend): Attend(
+          (attn_dropout): Dropout(p=0.0, inplace=False)
+        )
+        (to_qkv): Conv2d(512, 384, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (to_out): Conv2d(128, 512, kernel_size=(1, 1), stride=(1, 1))
+      )
+      (3): Sequential(
+        (0): Upsample(scale_factor=2.0, mode='nearest')
+        (1): Conv2d(512, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      )
+    )
+    (1): ModuleList(
+      (0-1): 2 x ResnetBlock(
+        (mlp): Sequential(
+          (0): SiLU()
+          (1): Linear(in_features=256, out_features=512, bias=True)
+        )
+        (block1): Block(
+          (proj): Conv2d(384, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (norm): RMSNorm()
+          (act): SiLU()
+          (dropout): Dropout(p=0.0, inplace=False)
+        )
+        (block2): Block(
+          (proj): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (norm): RMSNorm()
+          (act): SiLU()
+          (dropout): Dropout(p=0.0, inplace=False)
+        )
+        (res_conv): Conv2d(384, 256, kernel_size=(1, 1), stride=(1, 1))
+      )
+      (2): LinearAttention(
+        (norm): RMSNorm()
+        (to_qkv): Conv2d(256, 384, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (to_out): Sequential(
+          (0): Conv2d(128, 256, kernel_size=(1, 1), stride=(1, 1))
+          (1): RMSNorm()
+        )
+      )
+      (3): Sequential(
+        (0): Upsample(scale_factor=2.0, mode='nearest')
+        (1): Conv2d(256, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      )
+    )
+    (2): ModuleList(
+      (0-1): 2 x ResnetBlock(
+        (mlp): Sequential(
+          (0): SiLU()
+          (1): Linear(in_features=256, out_features=256, bias=True)
+        )
+        (block1): Block(
+          (proj): Conv2d(192, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (norm): RMSNorm()
+          (act): SiLU()
+          (dropout): Dropout(p=0.0, inplace=False)
+        )
+        (block2): Block(
+          (proj): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (norm): RMSNorm()
+          (act): SiLU()
+          (dropout): Dropout(p=0.0, inplace=False)
+        )
+        (res_conv): Conv2d(192, 128, kernel_size=(1, 1), stride=(1, 1))
+      )
+      (2): LinearAttention(
+        (norm): RMSNorm()
+        (to_qkv): Conv2d(128, 384, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (to_out): Sequential(
+          (0): Conv2d(128, 128, kernel_size=(1, 1), stride=(1, 1))
+          (1): RMSNorm()
+        )
+      )
+      (3): Sequential(
+        (0): Upsample(scale_factor=2.0, mode='nearest')
+        (1): Conv2d(128, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      )
+    )
+    (3): ModuleList(
+      (0-1): 2 x ResnetBlock(
+        (mlp): Sequential(
+          (0): SiLU()
+          (1): Linear(in_features=256, out_features=128, bias=True)
+        )
+        (block1): Block(
+          (proj): Conv2d(128, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (norm): RMSNorm()
+          (act): SiLU()
+          (dropout): Dropout(p=0.0, inplace=False)
+        )
+        (block2): Block(
+          (proj): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (norm): RMSNorm()
+          (act): SiLU()
+          (dropout): Dropout(p=0.0, inplace=False)
+        )
+        (res_conv): Conv2d(128, 64, kernel_size=(1, 1), stride=(1, 1))
+      )
+      (2): LinearAttention(
+        (norm): RMSNorm()
+        (to_qkv): Conv2d(64, 384, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (to_out): Sequential(
+          (0): Conv2d(128, 64, kernel_size=(1, 1), stride=(1, 1))
+          (1): RMSNorm()
+        )
+      )
+      (3): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    )
+  )
+  (mid_block1): ResnetBlock(
+    (mlp): Sequential(
+      (0): SiLU()
+      (1): Linear(in_features=256, out_features=1024, bias=True)
+    )
+    (block1): Block(
+      (proj): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (norm): RMSNorm()
+      (act): SiLU()
+      (dropout): Dropout(p=0.0, inplace=False)
+    )
+    (block2): Block(
+      (proj): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (norm): RMSNorm()
+      (act): SiLU()
+      (dropout): Dropout(p=0.0, inplace=False)
+    )
+    (res_conv): Identity()
+  )
+  (mid_attn): Attention(
+    (norm): RMSNorm()
+    (attend): Attend(
+      (attn_dropout): Dropout(p=0.0, inplace=False)
+    )
+    (to_qkv): Conv2d(512, 384, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (to_out): Conv2d(128, 512, kernel_size=(1, 1), stride=(1, 1))
+  )
+  (mid_block2): ResnetBlock(
+    (mlp): Sequential(
+      (0): SiLU()
+      (1): Linear(in_features=256, out_features=1024, bias=True)
+    )
+    (block1): Block(
+      (proj): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (norm): RMSNorm()
+      (act): SiLU()
+      (dropout): Dropout(p=0.0, inplace=False)
+    )
+    (block2): Block(
+      (proj): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (norm): RMSNorm()
+      (act): SiLU()
+      (dropout): Dropout(p=0.0, inplace=False)
+    )
+    (res_conv): Identity()
+  )
+  (final_res_block): ResnetBlock(
+    (mlp): Sequential(
+      (0): SiLU()
+      (1): Linear(in_features=256, out_features=128, bias=True)
+    )
+    (block1): Block(
+      (proj): Conv2d(128, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (norm): RMSNorm()
+      (act): SiLU()
+      (dropout): Dropout(p=0.0, inplace=False)
+    )
+    (block2): Block(
+      (proj): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (norm): RMSNorm()
+      (act): SiLU()
+      (dropout): Dropout(p=0.0, inplace=False)
+    )
+    (res_conv): Conv2d(128, 64, kernel_size=(1, 1), stride=(1, 1))
+  )
+  (final_conv): Conv2d(64, 3, kernel_size=(1, 1), stride=(1, 1))
+)
+[2024-06-30 17:43:57,429] [INFO] [comm.py:637:init_distributed] cdb=None
+1281167
+Number of GPUs available: 4
+GPU 0: NVIDIA RTX A6000
+GPU 1: NVIDIA RTX A6000
+GPU 2: NVIDIA RTX A6000
+GPU 3: NVIDIA RTX A6000
+1281167
+Number of GPUs available: 4
+GPU 0: NVIDIA RTX A6000
+GPU 1: NVIDIA RTX A6000
+GPU 2: NVIDIA RTX A6000
+GPU 3: NVIDIA RTX A6000
+Unet(
+  (init_conv): Conv2d(3, 64, kernel_size=(7, 7), stride=(1, 1), padding=(3, 3))
+  (time_mlp): Sequential(
+    (0): SinusoidalPosEmb()
+    (1): Linear(in_features=64, out_features=256, bias=True)
+    (2): GELU(approximate='none')
+    (3): Linear(in_features=256, out_features=256, bias=True)
+  )
+  (downs): ModuleList(
+    (0): ModuleList(
+      (0-1): 2 x ResnetBlock(
+        (mlp): Sequential(
+          (0): SiLU()
+          (1): Linear(in_features=256, out_features=128, bias=True)
+        )
+        (block1): Block(
+          (proj): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (norm): RMSNorm()
+          (act): SiLU()
+          (dropout): Dropout(p=0.0, inplace=False)
+        )
+        (block2): Block(
+          (proj): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (norm): RMSNorm()
+          (act): SiLU()
+          (dropout): Dropout(p=0.0, inplace=False)
+        )
+        (res_conv): Identity()
+      )
+      (2): LinearAttention(
+        (norm): RMSNorm()
+        (to_qkv): Conv2d(64, 384, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (to_out): Sequential(
+          (0): Conv2d(128, 64, kernel_size=(1, 1), stride=(1, 1))
+          (1): RMSNorm()
+        )
+      )
+      (3): Sequential(
+        (0): Rearrange('b c (h p1) (w p2) -> b (c p1 p2) h w', p1=2, p2=2)
+        (1): Conv2d(256, 64, kernel_size=(1, 1), stride=(1, 1))
+      )
+    )
+    (1): ModuleList(
+      (0-1): 2 x ResnetBlock(
+        (mlp): Sequential(
+          (0): SiLU()
+          (1): Linear(in_features=256, out_features=128, bias=True)
+        )
+        (block1): Block(
+          (proj): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (norm): RMSNorm()
+          (act): SiLU()
+          (dropout): Dropout(p=0.0, inplace=False)
+        )
+        (block2): Block(
+          (proj): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (norm): RMSNorm()
+          (act): SiLU()
+          (dropout): Dropout(p=0.0, inplace=False)
+        )
+        (res_conv): Identity()
+      )
+      (2): LinearAttention(
+        (norm): RMSNorm()
+        (to_qkv): Conv2d(64, 384, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (to_out): Sequential(
+          (0): Conv2d(128, 64, kernel_size=(1, 1), stride=(1, 1))
+          (1): RMSNorm()
+        )
+      )
+      (3): Sequential(
+        (0): Rearrange('b c (h p1) (w p2) -> b (c p1 p2) h w', p1=2, p2=2)
+        (1): Conv2d(256, 128, kernel_size=(1, 1), stride=(1, 1))
+      )
+    )
+    (2): ModuleList(
+      (0-1): 2 x ResnetBlock(
+        (mlp): Sequential(
+          (0): SiLU()
+          (1): Linear(in_features=256, out_features=256, bias=True)
+        )
+        (block1): Block(
+          (proj): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (norm): RMSNorm()
+          (act): SiLU()
+          (dropout): Dropout(p=0.0, inplace=False)
+        )
+        (block2): Block(
+          (proj): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (norm): RMSNorm()
+          (act): SiLU()
+          (dropout): Dropout(p=0.0, inplace=False)
+        )
+        (res_conv): Identity()
+      )
+      (2): LinearAttention(
+        (norm): RMSNorm()
+        (to_qkv): Conv2d(128, 384, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (to_out): Sequential(
+          (0): Conv2d(128, 128, kernel_size=(1, 1), stride=(1, 1))
+          (1): RMSNorm()
+        )
+      )
+      (3): Sequential(
+        (0): Rearrange('b c (h p1) (w p2) -> b (c p1 p2) h w', p1=2, p2=2)
+        (1): Conv2d(512, 256, kernel_size=(1, 1), stride=(1, 1))
+      )
+    )
+    (3): ModuleList(
+      (0-1): 2 x ResnetBlock(
+        (mlp): Sequential(
+          (0): SiLU()
+          (1): Linear(in_features=256, out_features=512, bias=True)
+        )
+        (block1): Block(
+          (proj): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (norm): RMSNorm()
+          (act): SiLU()
+          (dropout): Dropout(p=0.0, inplace=False)
+        )
+        (block2): Block(
+          (proj): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (norm): RMSNorm()
+          (act): SiLU()
+          (dropout): Dropout(p=0.0, inplace=False)
+        )
+        (res_conv): Identity()
+      )
+      (2): Attention(
+        (norm): RMSNorm()
+        (attend): Attend(
+          (attn_dropout): Dropout(p=0.0, inplace=False)
+        )
+        (to_qkv): Conv2d(256, 384, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (to_out): Conv2d(128, 256, kernel_size=(1, 1), stride=(1, 1))
+      )
+      (3): Conv2d(256, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    )
+  )
+  (ups): ModuleList(
+    (0): ModuleList(
+      (0-1): 2 x ResnetBlock(
+        (mlp): Sequential(
+          (0): SiLU()
+          (1): Linear(in_features=256, out_features=1024, bias=True)
+        )
+        (block1): Block(
+          (proj): Conv2d(768, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (norm): RMSNorm()
+          (act): SiLU()
+          (dropout): Dropout(p=0.0, inplace=False)
+        )
+        (block2): Block(
+          (proj): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (norm): RMSNorm()
+          (act): SiLU()
+          (dropout): Dropout(p=0.0, inplace=False)
+        )
+        (res_conv): Conv2d(768, 512, kernel_size=(1, 1), stride=(1, 1))
+      )
+      (2): Attention(
+        (norm): RMSNorm()
+        (attend): Attend(
+          (attn_dropout): Dropout(p=0.0, inplace=False)
+        )
+        (to_qkv): Conv2d(512, 384, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (to_out): Conv2d(128, 512, kernel_size=(1, 1), stride=(1, 1))
+      )
+      (3): Sequential(
+        (0): Upsample(scale_factor=2.0, mode='nearest')
+        (1): Conv2d(512, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      )
+    )
+    (1): ModuleList(
+      (0-1): 2 x ResnetBlock(
+        (mlp): Sequential(
+          (0): SiLU()
+          (1): Linear(in_features=256, out_features=512, bias=True)
+        )
+        (block1): Block(
+          (proj): Conv2d(384, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (norm): RMSNorm()
+          (act): SiLU()
+          (dropout): Dropout(p=0.0, inplace=False)
+        )
+        (block2): Block(
+          (proj): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (norm): RMSNorm()
+          (act): SiLU()
+          (dropout): Dropout(p=0.0, inplace=False)
+        )
+        (res_conv): Conv2d(384, 256, kernel_size=(1, 1), stride=(1, 1))
+      )
+      (2): LinearAttention(
+        (norm): RMSNorm()
+        (to_qkv): Conv2d(256, 384, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (to_out): Sequential(
+          (0): Conv2d(128, 256, kernel_size=(1, 1), stride=(1, 1))
+          (1): RMSNorm()
+        )
+      )
+      (3): Sequential(
+        (0): Upsample(scale_factor=2.0, mode='nearest')
+        (1): Conv2d(256, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      )
+    )
+    (2): ModuleList(
+      (0-1): 2 x ResnetBlock(
+        (mlp): Sequential(
+          (0): SiLU()
+          (1): Linear(in_features=256, out_features=256, bias=True)
+        )
+        (block1): Block(
+          (proj): Conv2d(192, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (norm): RMSNorm()
+          (act): SiLU()
+          (dropout): Dropout(p=0.0, inplace=False)
+        )
+        (block2): Block(
+          (proj): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (norm): RMSNorm()
+          (act): SiLU()
+          (dropout): Dropout(p=0.0, inplace=False)
+        )
+        (res_conv): Conv2d(192, 128, kernel_size=(1, 1), stride=(1, 1))
+      )
+      (2): LinearAttention(
+        (norm): RMSNorm()
+        (to_qkv): Conv2d(128, 384, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (to_out): Sequential(
+          (0): Conv2d(128, 128, kernel_size=(1, 1), stride=(1, 1))
+          (1): RMSNorm()
+        )
+      )
+      (3): Sequential(
+        (0): Upsample(scale_factor=2.0, mode='nearest')
+        (1): Conv2d(128, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      )
+    )
+    (3): ModuleList(
+      (0-1): 2 x ResnetBlock(
+        (mlp): Sequential(
+          (0): SiLU()
+          (1): Linear(in_features=256, out_features=128, bias=True)
+        )
+        (block1): Block(
+          (proj): Conv2d(128, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (norm): RMSNorm()
+          (act): SiLU()
+          (dropout): Dropout(p=0.0, inplace=False)
+        )
+        (block2): Block(
+          (proj): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (norm): RMSNorm()
+          (act): SiLU()
+          (dropout): Dropout(p=0.0, inplace=False)
+        )
+        (res_conv): Conv2d(128, 64, kernel_size=(1, 1), stride=(1, 1))
+      )
+      (2): LinearAttention(
+        (norm): RMSNorm()
+        (to_qkv): Conv2d(64, 384, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (to_out): Sequential(
+          (0): Conv2d(128, 64, kernel_size=(1, 1), stride=(1, 1))
+          (1): RMSNorm()
+        )
+      )
+      (3): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    )
+  )
+  (mid_block1): ResnetBlock(
+    (mlp): Sequential(
+      (0): SiLU()
+      (1): Linear(in_features=256, out_features=1024, bias=True)
+    )
+    (block1): Block(
+      (proj): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (norm): RMSNorm()
+      (act): SiLU()
+      (dropout): Dropout(p=0.0, inplace=False)
+    )
+    (block2): Block(
+      (proj): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (norm): RMSNorm()
+      (act): SiLU()
+      (dropout): Dropout(p=0.0, inplace=False)
+    )
+    (res_conv): Identity()
+  )
+  (mid_attn): Attention(
+    (norm): RMSNorm()
+    (attend): Attend(
+      (attn_dropout): Dropout(p=0.0, inplace=False)
+    )
+    (to_qkv): Conv2d(512, 384, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (to_out): Conv2d(128, 512, kernel_size=(1, 1), stride=(1, 1))
+  )
+  (mid_block2): ResnetBlock(
+    (mlp): Sequential(
+      (0): SiLU()
+      (1): Linear(in_features=256, out_features=1024, bias=True)
+    )
+    (block1): Block(
+      (proj): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (norm): RMSNorm()
+      (act): SiLU()
+      (dropout): Dropout(p=0.0, inplace=False)
+    )
+    (block2): Block(
+      (proj): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (norm): RMSNorm()
+      (act): SiLU()
+      (dropout): Dropout(p=0.0, inplace=False)
+    )
+    (res_conv): Identity()
+  )
+  (final_res_block): ResnetBlock(
+    (mlp): Sequential(
+      (0): SiLU()
+      (1): Linear(in_features=256, out_features=128, bias=True)
+    )
+    (block1): Block(
+      (proj): Conv2d(128, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (norm): RMSNorm()
+      (act): SiLU()
+      (dropout): Dropout(p=0.0, inplace=False)
+    )
+    (block2): Block(
+      (proj): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (norm): RMSNorm()
+      (act): SiLU()
+      (dropout): Dropout(p=0.0, inplace=False)
+    )
+    (res_conv): Conv2d(128, 64, kernel_size=(1, 1), stride=(1, 1))
+  )
+  (final_conv): Conv2d(64, 3, kernel_size=(1, 1), stride=(1, 1))
+)
+[2024-06-30 17:43:57,646] [INFO] [comm.py:637:init_distributed] cdb=None
+[2024-06-30 17:43:57,647] [INFO] [comm.py:668:init_distributed] Initializing TorchBackend in DeepSpeed with backend nccl
+Unet(
+  (init_conv): Conv2d(3, 64, kernel_size=(7, 7), stride=(1, 1), padding=(3, 3))
+  (time_mlp): Sequential(
+    (0): SinusoidalPosEmb()
+    (1): Linear(in_features=64, out_features=256, bias=True)
+    (2): GELU(approximate='none')
+    (3): Linear(in_features=256, out_features=256, bias=True)
+  )
+  (downs): ModuleList(
+    (0): ModuleList(
+      (0-1): 2 x ResnetBlock(
+        (mlp): Sequential(
+          (0): SiLU()
+          (1): Linear(in_features=256, out_features=128, bias=True)
+        )
+        (block1): Block(
+          (proj): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (norm): RMSNorm()
+          (act): SiLU()
+          (dropout): Dropout(p=0.0, inplace=False)
+        )
+        (block2): Block(
+          (proj): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (norm): RMSNorm()
+          (act): SiLU()
+          (dropout): Dropout(p=0.0, inplace=False)
+        )
+        (res_conv): Identity()
+      )
+      (2): LinearAttention(
+        (norm): RMSNorm()
+        (to_qkv): Conv2d(64, 384, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (to_out): Sequential(
+          (0): Conv2d(128, 64, kernel_size=(1, 1), stride=(1, 1))
+          (1): RMSNorm()
+        )
+      )
+      (3): Sequential(
+        (0): Rearrange('b c (h p1) (w p2) -> b (c p1 p2) h w', p1=2, p2=2)
+        (1): Conv2d(256, 64, kernel_size=(1, 1), stride=(1, 1))
+      )
+    )
+    (1): ModuleList(
+      (0-1): 2 x ResnetBlock(
+        (mlp): Sequential(
+          (0): SiLU()
+          (1): Linear(in_features=256, out_features=128, bias=True)
+        )
+        (block1): Block(
+          (proj): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (norm): RMSNorm()
+          (act): SiLU()
+          (dropout): Dropout(p=0.0, inplace=False)
+        )
+        (block2): Block(
+          (proj): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (norm): RMSNorm()
+          (act): SiLU()
+          (dropout): Dropout(p=0.0, inplace=False)
+        )
+        (res_conv): Identity()
+      )
+      (2): LinearAttention(
+        (norm): RMSNorm()
+        (to_qkv): Conv2d(64, 384, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (to_out): Sequential(
+          (0): Conv2d(128, 64, kernel_size=(1, 1), stride=(1, 1))
+          (1): RMSNorm()
+        )
+      )
+      (3): Sequential(
+        (0): Rearrange('b c (h p1) (w p2) -> b (c p1 p2) h w', p1=2, p2=2)
+        (1): Conv2d(256, 128, kernel_size=(1, 1), stride=(1, 1))
+      )
+    )
+    (2): ModuleList(
+      (0-1): 2 x ResnetBlock(
+        (mlp): Sequential(
+          (0): SiLU()
+          (1): Linear(in_features=256, out_features=256, bias=True)
+        )
+        (block1): Block(
+          (proj): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (norm): RMSNorm()
+          (act): SiLU()
+          (dropout): Dropout(p=0.0, inplace=False)
+        )
+        (block2): Block(
+          (proj): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (norm): RMSNorm()
+          (act): SiLU()
+          (dropout): Dropout(p=0.0, inplace=False)
+        )
+        (res_conv): Identity()
+      )
+      (2): LinearAttention(
+        (norm): RMSNorm()
+        (to_qkv): Conv2d(128, 384, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (to_out): Sequential(
+          (0): Conv2d(128, 128, kernel_size=(1, 1), stride=(1, 1))
+          (1): RMSNorm()
+        )
+      )
+      (3): Sequential(
+        (0): Rearrange('b c (h p1) (w p2) -> b (c p1 p2) h w', p1=2, p2=2)
+        (1): Conv2d(512, 256, kernel_size=(1, 1), stride=(1, 1))
+      )
+    )
+    (3): ModuleList(
+      (0-1): 2 x ResnetBlock(
+        (mlp): Sequential(
+          (0): SiLU()
+          (1): Linear(in_features=256, out_features=512, bias=True)
+        )
+        (block1): Block(
+          (proj): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (norm): RMSNorm()
+          (act): SiLU()
+          (dropout): Dropout(p=0.0, inplace=False)
+        )
+        (block2): Block(
+          (proj): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (norm): RMSNorm()
+          (act): SiLU()
+          (dropout): Dropout(p=0.0, inplace=False)
+        )
+        (res_conv): Identity()
+      )
+      (2): Attention(
+        (norm): RMSNorm()
+        (attend): Attend(
+          (attn_dropout): Dropout(p=0.0, inplace=False)
+        )
+        (to_qkv): Conv2d(256, 384, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (to_out): Conv2d(128, 256, kernel_size=(1, 1), stride=(1, 1))
+      )
+      (3): Conv2d(256, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    )
+  )
+  (ups): ModuleList(
+    (0): ModuleList(
+      (0-1): 2 x ResnetBlock(
+        (mlp): Sequential(
+          (0): SiLU()
+          (1): Linear(in_features=256, out_features=1024, bias=True)
+        )
+        (block1): Block(
+          (proj): Conv2d(768, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (norm): RMSNorm()
+          (act): SiLU()
+          (dropout): Dropout(p=0.0, inplace=False)
+        )
+        (block2): Block(
+          (proj): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (norm): RMSNorm()
+          (act): SiLU()
+          (dropout): Dropout(p=0.0, inplace=False)
+        )
+        (res_conv): Conv2d(768, 512, kernel_size=(1, 1), stride=(1, 1))
+      )
+      (2): Attention(
+        (norm): RMSNorm()
+        (attend): Attend(
+          (attn_dropout): Dropout(p=0.0, inplace=False)
+        )
+        (to_qkv): Conv2d(512, 384, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (to_out): Conv2d(128, 512, kernel_size=(1, 1), stride=(1, 1))
+      )
+      (3): Sequential(
+        (0): Upsample(scale_factor=2.0, mode='nearest')
+        (1): Conv2d(512, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      )
+    )
+    (1): ModuleList(
+      (0-1): 2 x ResnetBlock(
+        (mlp): Sequential(
+          (0): SiLU()
+          (1): Linear(in_features=256, out_features=512, bias=True)
+        )
+        (block1): Block(
+          (proj): Conv2d(384, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (norm): RMSNorm()
+          (act): SiLU()
+          (dropout): Dropout(p=0.0, inplace=False)
+        )
+        (block2): Block(
+          (proj): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (norm): RMSNorm()
+          (act): SiLU()
+          (dropout): Dropout(p=0.0, inplace=False)
+        )
+        (res_conv): Conv2d(384, 256, kernel_size=(1, 1), stride=(1, 1))
+      )
+      (2): LinearAttention(
+        (norm): RMSNorm()
+        (to_qkv): Conv2d(256, 384, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (to_out): Sequential(
+          (0): Conv2d(128, 256, kernel_size=(1, 1), stride=(1, 1))
+          (1): RMSNorm()
+        )
+      )
+      (3): Sequential(
+        (0): Upsample(scale_factor=2.0, mode='nearest')
+        (1): Conv2d(256, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      )
+    )
+    (2): ModuleList(
+      (0-1): 2 x ResnetBlock(
+        (mlp): Sequential(
+          (0): SiLU()
+          (1): Linear(in_features=256, out_features=256, bias=True)
+        )
+        (block1): Block(
+          (proj): Conv2d(192, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (norm): RMSNorm()
+          (act): SiLU()
+          (dropout): Dropout(p=0.0, inplace=False)
+        )
+        (block2): Block(
+          (proj): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (norm): RMSNorm()
+          (act): SiLU()
+          (dropout): Dropout(p=0.0, inplace=False)
+        )
+        (res_conv): Conv2d(192, 128, kernel_size=(1, 1), stride=(1, 1))
+      )
+      (2): LinearAttention(
+        (norm): RMSNorm()
+        (to_qkv): Conv2d(128, 384, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (to_out): Sequential(
+          (0): Conv2d(128, 128, kernel_size=(1, 1), stride=(1, 1))
+          (1): RMSNorm()
+        )
+      )
+      (3): Sequential(
+        (0): Upsample(scale_factor=2.0, mode='nearest')
+        (1): Conv2d(128, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      )
+    )
+    (3): ModuleList(
+      (0-1): 2 x ResnetBlock(
+        (mlp): Sequential(
+          (0): SiLU()
+          (1): Linear(in_features=256, out_features=128, bias=True)
+        )
+        (block1): Block(
+          (proj): Conv2d(128, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (norm): RMSNorm()
+          (act): SiLU()
+          (dropout): Dropout(p=0.0, inplace=False)
+        )
+        (block2): Block(
+          (proj): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (norm): RMSNorm()
+          (act): SiLU()
+          (dropout): Dropout(p=0.0, inplace=False)
+        )
+        (res_conv): Conv2d(128, 64, kernel_size=(1, 1), stride=(1, 1))
+      )
+      (2): LinearAttention(
+        (norm): RMSNorm()
+        (to_qkv): Conv2d(64, 384, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (to_out): Sequential(
+          (0): Conv2d(128, 64, kernel_size=(1, 1), stride=(1, 1))
+          (1): RMSNorm()
+        )
+      )
+      (3): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    )
+  )
+  (mid_block1): ResnetBlock(
+    (mlp): Sequential(
+      (0): SiLU()
+      (1): Linear(in_features=256, out_features=1024, bias=True)
+    )
+    (block1): Block(
+      (proj): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (norm): RMSNorm()
+      (act): SiLU()
+      (dropout): Dropout(p=0.0, inplace=False)
+    )
+    (block2): Block(
+      (proj): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (norm): RMSNorm()
+      (act): SiLU()
+      (dropout): Dropout(p=0.0, inplace=False)
+    )
+    (res_conv): Identity()
+  )
+  (mid_attn): Attention(
+    (norm): RMSNorm()
+    (attend): Attend(
+      (attn_dropout): Dropout(p=0.0, inplace=False)
+    )
+    (to_qkv): Conv2d(512, 384, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (to_out): Conv2d(128, 512, kernel_size=(1, 1), stride=(1, 1))
+  )
+  (mid_block2): ResnetBlock(
+    (mlp): Sequential(
+      (0): SiLU()
+      (1): Linear(in_features=256, out_features=1024, bias=True)
+    )
+    (block1): Block(
+      (proj): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (norm): RMSNorm()
+      (act): SiLU()
+      (dropout): Dropout(p=0.0, inplace=False)
+    )
+    (block2): Block(
+      (proj): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (norm): RMSNorm()
+      (act): SiLU()
+      (dropout): Dropout(p=0.0, inplace=False)
+    )
+    (res_conv): Identity()
+  )
+  (final_res_block): ResnetBlock(
+    (mlp): Sequential(
+      (0): SiLU()
+      (1): Linear(in_features=256, out_features=128, bias=True)
+    )
+    (block1): Block(
+      (proj): Conv2d(128, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (norm): RMSNorm()
+      (act): SiLU()
+      (dropout): Dropout(p=0.0, inplace=False)
+    )
+    (block2): Block(
+      (proj): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (norm): RMSNorm()
+      (act): SiLU()
+      (dropout): Dropout(p=0.0, inplace=False)
+    )
+    (res_conv): Conv2d(128, 64, kernel_size=(1, 1), stride=(1, 1))
+  )
+  (final_conv): Conv2d(64, 3, kernel_size=(1, 1), stride=(1, 1))
+)
+[2024-06-30 17:43:57,740] [INFO] [comm.py:637:init_distributed] cdb=None
+/home/cyoonjun/miniconda3/envs/tutorial/lib/python3.9/site-packages/accelerate/accelerator.py:444: FutureWarning: Passing the following arguments to `Accelerator` is deprecated and will be removed in version 1.0 of Accelerate: dict_keys(['split_batches']). Please pass an `accelerate.DataLoaderConfiguration` instead: 
+dataloader_config = DataLoaderConfiguration(split_batches=True)
+  warnings.warn(
+/home/cyoonjun/miniconda3/envs/tutorial/lib/python3.9/site-packages/accelerate/accelerator.py:444: FutureWarning: Passing the following arguments to `Accelerator` is deprecated and will be removed in version 1.0 of Accelerate: dict_keys(['split_batches']). Please pass an `accelerate.DataLoaderConfiguration` instead: 
+dataloader_config = DataLoaderConfiguration(split_batches=True)
+  warnings.warn(
+/home/cyoonjun/miniconda3/envs/tutorial/lib/python3.9/site-packages/accelerate/accelerator.py:444: FutureWarning: Passing the following arguments to `Accelerator` is deprecated and will be removed in version 1.0 of Accelerate: dict_keys(['split_batches']). Please pass an `accelerate.DataLoaderConfiguration` instead: 
+dataloader_config = DataLoaderConfiguration(split_batches=True)
+  warnings.warn(
+/home/cyoonjun/miniconda3/envs/tutorial/lib/python3.9/site-packages/accelerate/accelerator.py:444: FutureWarning: Passing the following arguments to `Accelerator` is deprecated and will be removed in version 1.0 of Accelerate: dict_keys(['split_batches']). Please pass an `accelerate.DataLoaderConfiguration` instead: 
+dataloader_config = DataLoaderConfiguration(split_batches=True)
+  warnings.warn(
+Detected kernel version 3.10.0, which is below the recommended minimum of 5.5.0; this can cause the process to hang. It is recommended to upgrade the kernel to the minimum version or higher.
+wandb: Currently logged in as: quasar529. Use `wandb login --relogin` to force relogin
+wandb: Tracking run with wandb version 0.17.3
+wandb: Run data is saved locally in /home/cyoonjun/bumjun/denoising-diffusion-pytorch/wandb/run-20240630_174359-js806527
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run 2048batch-100000train_num_steps-10000num_fid_samples
+wandb: ⭐️ View project at https://wandb.ai/quasar529/denoising-diffusion-pytorch
+wandb: 🚀 View run at https://wandb.ai/quasar529/denoising-diffusion-pytorch/runs/js806527
+[2024-06-30 17:44:04,350] [INFO] [logging.py:96:log_dist] [Rank 0] DeepSpeed info: version=0.14.4, git-hash=unknown, git-branch=unknown
+[2024-06-30 17:44:04,805] [INFO] [logging.py:96:log_dist] [Rank 0] DeepSpeed Flops Profiler Enabled: False
+[2024-06-30 17:44:04,806] [INFO] [logging.py:96:log_dist] [Rank 0] Using client Optimizer as basic optimizer
+[2024-06-30 17:44:04,806] [INFO] [logging.py:96:log_dist] [Rank 0] Removing param_group that has no 'params' in the basic Optimizer
+[2024-06-30 17:44:04,812] [INFO] [logging.py:96:log_dist] [Rank 0] DeepSpeed Basic Optimizer = Adam
+[2024-06-30 17:44:04,812] [INFO] [utils.py:56:is_zero_supported_optimizer] Checking ZeRO support for optimizer=Adam type=<class 'torch.optim.adam.Adam'>
+[2024-06-30 17:44:04,812] [INFO] [logging.py:96:log_dist] [Rank 0] Creating torch.float32 ZeRO stage 2 optimizer
+[2024-06-30 17:44:04,812] [INFO] [stage_1_and_2.py:148:__init__] Reduce bucket size 200000000
+[2024-06-30 17:44:04,812] [INFO] [stage_1_and_2.py:149:__init__] Allgather bucket size 200000000
+[2024-06-30 17:44:04,813] [INFO] [stage_1_and_2.py:150:__init__] CPU Offload: True
+[2024-06-30 17:44:04,813] [INFO] [stage_1_and_2.py:151:__init__] Round robin gradient partitioning: False
+Train Start
+Train Start
+Train Start
+[2024-06-30 17:44:05,067] [INFO] [utils.py:781:see_memory_usage] Before initializing optimizer states
+[2024-06-30 17:44:05,068] [INFO] [utils.py:782:see_memory_usage] MA 0.28 GB         Max_MA 0.28 GB         CA 0.35 GB         Max_CA 0 GB 
+[2024-06-30 17:44:05,068] [INFO] [utils.py:789:see_memory_usage] CPU Virtual Memory:  used = 60.58 GB, percent = 12.0%
+[2024-06-30 17:44:05,180] [INFO] [utils.py:781:see_memory_usage] After initializing optimizer states
+[2024-06-30 17:44:05,181] [INFO] [utils.py:782:see_memory_usage] MA 0.28 GB         Max_MA 0.28 GB         CA 0.35 GB         Max_CA 0 GB 
+[2024-06-30 17:44:05,181] [INFO] [utils.py:789:see_memory_usage] CPU Virtual Memory:  used = 60.64 GB, percent = 12.0%
+[2024-06-30 17:44:05,181] [INFO] [stage_1_and_2.py:543:__init__] optimizer state initialized
+[2024-06-30 17:44:05,264] [INFO] [utils.py:781:see_memory_usage] After initializing ZeRO optimizer
+[2024-06-30 17:44:05,265] [INFO] [utils.py:782:see_memory_usage] MA 0.28 GB         Max_MA 0.28 GB         CA 0.35 GB         Max_CA 0 GB 
+[2024-06-30 17:44:05,265] [INFO] [utils.py:789:see_memory_usage] CPU Virtual Memory:  used = 60.64 GB, percent = 12.0%
+[2024-06-30 17:44:05,267] [INFO] [logging.py:96:log_dist] [Rank 0] DeepSpeed Final Optimizer = DeepSpeedZeroOptimizer
+[2024-06-30 17:44:05,267] [INFO] [logging.py:96:log_dist] [Rank 0] DeepSpeed using configured LR scheduler = WarmupLR
+[2024-06-30 17:44:05,267] [INFO] [logging.py:96:log_dist] [Rank 0] DeepSpeed LR Scheduler = <deepspeed.runtime.lr_schedules.WarmupLR object at 0x7f6a125fee50>
+[2024-06-30 17:44:05,267] [INFO] [logging.py:96:log_dist] [Rank 0] step=0, skipped=0, lr=[8e-05], mom=[(0.9, 0.99)]
+[2024-06-30 17:44:05,268] [INFO] [config.py:997:print] DeepSpeedEngine configuration:
+[2024-06-30 17:44:05,268] [INFO] [config.py:1001:print]   activation_checkpointing_config  {
+    "partition_activations": false, 
+    "contiguous_memory_optimization": false, 
+    "cpu_checkpointing": false, 
+    "number_checkpoints": null, 
+    "synchronize_checkpoint_boundary": false, 
+    "profile": false
+}
+[2024-06-30 17:44:05,268] [INFO] [config.py:1001:print]   aio_config ................... {'block_size': 1048576, 'queue_depth': 8, 'thread_count': 1, 'single_submit': False, 'overlap_events': True}
+[2024-06-30 17:44:05,268] [INFO] [config.py:1001:print]   amp_enabled .................. False
+[2024-06-30 17:44:05,268] [INFO] [config.py:1001:print]   amp_params ................... False
+[2024-06-30 17:44:05,268] [INFO] [config.py:1001:print]   autotuning_config ............ {
+    "enabled": false, 
+    "start_step": null, 
+    "end_step": null, 
+    "metric_path": null, 
+    "arg_mappings": null, 
+    "metric": "throughput", 
+    "model_info": null, 
+    "results_dir": "autotuning_results", 
+    "exps_dir": "autotuning_exps", 
+    "overwrite": true, 
+    "fast": true, 
+    "start_profile_step": 3, 
+    "end_profile_step": 5, 
+    "tuner_type": "gridsearch", 
+    "tuner_early_stopping": 5, 
+    "tuner_num_trials": 50, 
+    "model_info_path": null, 
+    "mp_size": 1, 
+    "max_train_batch_size": null, 
+    "min_train_batch_size": 1, 
+    "max_train_micro_batch_size_per_gpu": 1.024000e+03, 
+    "min_train_micro_batch_size_per_gpu": 1, 
+    "num_tuning_micro_batch_sizes": 3
+}
+[2024-06-30 17:44:05,268] [INFO] [config.py:1001:print]   bfloat16_enabled ............. False
+[2024-06-30 17:44:05,268] [INFO] [config.py:1001:print]   bfloat16_immediate_grad_update  False
+[2024-06-30 17:44:05,268] [INFO] [config.py:1001:print]   checkpoint_parallel_write_pipeline  False
+[2024-06-30 17:44:05,268] [INFO] [config.py:1001:print]   checkpoint_tag_validation_enabled  True
+[2024-06-30 17:44:05,268] [INFO] [config.py:1001:print]   checkpoint_tag_validation_fail  False
+[2024-06-30 17:44:05,268] [INFO] [config.py:1001:print]   comms_config ................. <deepspeed.comm.config.DeepSpeedCommsConfig object at 0x7f69f35d0dc0>
+[2024-06-30 17:44:05,268] [INFO] [config.py:1001:print]   communication_data_type ...... None
+[2024-06-30 17:44:05,268] [INFO] [config.py:1001:print]   compression_config ........... {'weight_quantization': {'shared_parameters': {'enabled': False, 'quantizer_kernel': False, 'schedule_offset': 0, 'quantize_groups': 1, 'quantize_verbose': False, 'quantization_type': 'symmetric', 'quantize_weight_in_forward': False, 'rounding': 'nearest', 'fp16_mixed_quantize': False, 'quantize_change_ratio': 0.001}, 'different_groups': {}}, 'activation_quantization': {'shared_parameters': {'enabled': False, 'quantization_type': 'symmetric', 'range_calibration': 'dynamic', 'schedule_offset': 1000}, 'different_groups': {}}, 'sparse_pruning': {'shared_parameters': {'enabled': False, 'method': 'l1', 'schedule_offset': 1000}, 'different_groups': {}}, 'row_pruning': {'shared_parameters': {'enabled': False, 'method': 'l1', 'schedule_offset': 1000}, 'different_groups': {}}, 'head_pruning': {'shared_parameters': {'enabled': False, 'method': 'topk', 'schedule_offset': 1000}, 'different_groups': {}}, 'channel_pruning': {'shared_parameters': {'enabled': False, 'method': 'l1', 'schedule_offset': 1000}, 'different_groups': {}}, 'layer_reduction': {'enabled': False}}
+[2024-06-30 17:44:05,268] [INFO] [config.py:1001:print]   curriculum_enabled_legacy .... False
+[2024-06-30 17:44:05,268] [INFO] [config.py:1001:print]   curriculum_params_legacy ..... False
+[2024-06-30 17:44:05,268] [INFO] [config.py:1001:print]   data_efficiency_config ....... {'enabled': False, 'seed': 1234, 'data_sampling': {'enabled': False, 'num_epochs': 1000, 'num_workers': 0, 'curriculum_learning': {'enabled': False}}, 'data_routing': {'enabled': False, 'random_ltd': {'enabled': False, 'layer_token_lr_schedule': {'enabled': False}}}}
+[2024-06-30 17:44:05,268] [INFO] [config.py:1001:print]   data_efficiency_enabled ...... False
+[2024-06-30 17:44:05,268] [INFO] [config.py:1001:print]   dataloader_drop_last ......... False
+[2024-06-30 17:44:05,268] [INFO] [config.py:1001:print]   disable_allgather ............ False
+[2024-06-30 17:44:05,268] [INFO] [config.py:1001:print]   dump_state ................... False
+[2024-06-30 17:44:05,268] [INFO] [config.py:1001:print]   dynamic_loss_scale_args ...... None
+[2024-06-30 17:44:05,268] [INFO] [config.py:1001:print]   eigenvalue_enabled ........... False
+[2024-06-30 17:44:05,269] [INFO] [config.py:1001:print]   eigenvalue_gas_boundary_resolution  1
+[2024-06-30 17:44:05,269] [INFO] [config.py:1001:print]   eigenvalue_layer_name ........ bert.encoder.layer
+[2024-06-30 17:44:05,269] [INFO] [config.py:1001:print]   eigenvalue_layer_num ......... 0
+[2024-06-30 17:44:05,269] [INFO] [config.py:1001:print]   eigenvalue_max_iter .......... 100
+[2024-06-30 17:44:05,269] [INFO] [config.py:1001:print]   eigenvalue_stability ......... 1e-06
+[2024-06-30 17:44:05,269] [INFO] [config.py:1001:print]   eigenvalue_tol ............... 0.01
+[2024-06-30 17:44:05,269] [INFO] [config.py:1001:print]   eigenvalue_verbose ........... False
+[2024-06-30 17:44:05,269] [INFO] [config.py:1001:print]   elasticity_enabled ........... False
+[2024-06-30 17:44:05,269] [INFO] [config.py:1001:print]   flops_profiler_config ........ {
+    "enabled": false, 
+    "recompute_fwd_factor": 0.0, 
+    "profile_step": 1, 
+    "module_depth": -1, 
+    "top_modules": 1, 
+    "detailed": true, 
+    "output_file": null
+}
+[2024-06-30 17:44:05,269] [INFO] [config.py:1001:print]   fp16_auto_cast ............... None
+[2024-06-30 17:44:05,269] [INFO] [config.py:1001:print]   fp16_enabled ................. False
+[2024-06-30 17:44:05,269] [INFO] [config.py:1001:print]   fp16_master_weights_and_gradients  False
+[2024-06-30 17:44:05,269] [INFO] [config.py:1001:print]   global_rank .................. 0
+[2024-06-30 17:44:05,269] [INFO] [config.py:1001:print]   grad_accum_dtype ............. None
+[2024-06-30 17:44:05,269] [INFO] [config.py:1001:print]   gradient_accumulation_steps .. 1
+[2024-06-30 17:44:05,269] [INFO] [config.py:1001:print]   gradient_clipping ............ 0.0
+[2024-06-30 17:44:05,269] [INFO] [config.py:1001:print]   gradient_predivide_factor .... 1.0
+[2024-06-30 17:44:05,269] [INFO] [config.py:1001:print]   graph_harvesting ............. False
+[2024-06-30 17:44:05,269] [INFO] [config.py:1001:print]   hybrid_engine ................ enabled=False max_out_tokens=512 inference_tp_size=1 release_inference_cache=False pin_parameters=True tp_gather_partition_size=8
+[2024-06-30 17:44:05,269] [INFO] [config.py:1001:print]   initial_dynamic_scale ........ 65536
+[2024-06-30 17:44:05,269] [INFO] [config.py:1001:print]   load_universal_checkpoint .... False
+[2024-06-30 17:44:05,269] [INFO] [config.py:1001:print]   loss_scale ................... 0
+[2024-06-30 17:44:05,269] [INFO] [config.py:1001:print]   memory_breakdown ............. False
+[2024-06-30 17:44:05,269] [INFO] [config.py:1001:print]   mics_hierarchial_params_gather  False
+[2024-06-30 17:44:05,269] [INFO] [config.py:1001:print]   mics_shard_size .............. -1
+[2024-06-30 17:44:05,269] [INFO] [config.py:1001:print]   monitor_config ............... tensorboard=TensorBoardConfig(enabled=False, output_path='', job_name='DeepSpeedJobName') comet=CometConfig(enabled=False, samples_log_interval=100, project=None, workspace=None, api_key=None, experiment_name=None, experiment_key=None, online=None, mode=None) wandb=WandbConfig(enabled=False, group=None, team=None, project='deepspeed') csv_monitor=CSVConfig(enabled=False, output_path='', job_name='DeepSpeedJobName') enabled=False
+[2024-06-30 17:44:05,269] [INFO] [config.py:1001:print]   nebula_config ................ {
+    "enabled": false, 
+    "persistent_storage_path": null, 
+    "persistent_time_interval": 100, 
+    "num_of_version_in_retention": 2, 
+    "enable_nebula_load": true, 
+    "load_path": null
+}
+[2024-06-30 17:44:05,269] [INFO] [config.py:1001:print]   optimizer_legacy_fusion ...... False
+[2024-06-30 17:44:05,269] [INFO] [config.py:1001:print]   optimizer_name ............... None
+[2024-06-30 17:44:05,269] [INFO] [config.py:1001:print]   optimizer_params ............. None
+[2024-06-30 17:44:05,269] [INFO] [config.py:1001:print]   pipeline ..................... {'stages': 'auto', 'partition': 'best', 'seed_layers': False, 'activation_checkpoint_interval': 0, 'pipe_partitioned': True, 'grad_partitioned': True}
+[2024-06-30 17:44:05,269] [INFO] [config.py:1001:print]   pld_enabled .................. False
+[2024-06-30 17:44:05,269] [INFO] [config.py:1001:print]   pld_params ................... False
+[2024-06-30 17:44:05,269] [INFO] [config.py:1001:print]   prescale_gradients ........... False
+[2024-06-30 17:44:05,269] [INFO] [config.py:1001:print]   scheduler_name ............... WarmupLR
+[2024-06-30 17:44:05,269] [INFO] [config.py:1001:print]   scheduler_params ............. {'warmup_min_lr': 1e-07, 'warmup_max_lr': 0.0001, 'warmup_num_steps': 1000}
+[2024-06-30 17:44:05,269] [INFO] [config.py:1001:print]   seq_parallel_communication_data_type  torch.float32
+[2024-06-30 17:44:05,269] [INFO] [config.py:1001:print]   sparse_attention ............. None
+[2024-06-30 17:44:05,269] [INFO] [config.py:1001:print]   sparse_gradients_enabled ..... False
+[2024-06-30 17:44:05,269] [INFO] [config.py:1001:print]   steps_per_print .............. inf
+[2024-06-30 17:44:05,270] [INFO] [config.py:1001:print]   timers_config ................ enabled=True synchronized=True
+[2024-06-30 17:44:05,270] [INFO] [config.py:1001:print]   train_batch_size ............. 2048
+[2024-06-30 17:44:05,270] [INFO] [config.py:1001:print]   train_micro_batch_size_per_gpu  512
+[2024-06-30 17:44:05,270] [INFO] [config.py:1001:print]   use_data_before_expert_parallel_  False
+[2024-06-30 17:44:05,270] [INFO] [config.py:1001:print]   use_node_local_storage ....... False
+[2024-06-30 17:44:05,270] [INFO] [config.py:1001:print]   wall_clock_breakdown ......... False
+[2024-06-30 17:44:05,270] [INFO] [config.py:1001:print]   weight_quantization_config ... None
+[2024-06-30 17:44:05,270] [INFO] [config.py:1001:print]   world_size ................... 4
+[2024-06-30 17:44:05,270] [INFO] [config.py:1001:print]   zero_allow_untested_optimizer  True
+[2024-06-30 17:44:05,270] [INFO] [config.py:1001:print]   zero_config .................. stage=2 contiguous_gradients=True reduce_scatter=True reduce_bucket_size=200000000 use_multi_rank_bucket_allreduce=True allgather_partitions=True allgather_bucket_size=200000000 overlap_comm=True load_from_fp32_weights=True elastic_checkpoint=False offload_param=None offload_optimizer=DeepSpeedZeroOffloadOptimizerConfig(device='cpu', nvme_path=None, buffer_count=4, pin_memory=True, pipeline=False, pipeline_read=False, pipeline_write=False, fast_init=False, ratio=1.0) sub_group_size=1,000,000,000 cpu_offload_param=None cpu_offload_use_pin_memory=None cpu_offload=None prefetch_bucket_size=50,000,000 param_persistence_threshold=100,000 model_persistence_threshold=sys.maxsize max_live_parameters=1,000,000,000 max_reuse_distance=1,000,000,000 gather_16bit_weights_on_model_save=False use_all_reduce_for_fetch_params=False stage3_gather_fp16_weights_on_model_save=False ignore_unused_parameters=True legacy_stage1=False round_robin_gradients=False zero_hpz_partition_size=1 zero_quantized_weights=False zero_quantized_nontrainable_weights=False zero_quantized_gradients=False mics_shard_size=-1 mics_hierarchical_params_gather=False memory_efficient_linear=True pipeline_loading_checkpoint=False override_module_apply=True
+[2024-06-30 17:44:05,270] [INFO] [config.py:1001:print]   zero_enabled ................. True
+[2024-06-30 17:44:05,270] [INFO] [config.py:1001:print]   zero_force_ds_cpu_optimizer .. False
+[2024-06-30 17:44:05,270] [INFO] [config.py:1001:print]   zero_optimization_stage ...... 2
+[2024-06-30 17:44:05,270] [INFO] [config.py:987:print_user_config]   json = {
+    "zero_force_ds_cpu_optimizer": false, 
+    "train_batch_size": 2.048000e+03, 
+    "train_micro_batch_size_per_gpu": 512, 
+    "fp16": {
+        "enabled": false, 
+        "loss_scale": 0, 
+        "loss_scale_window": 1000, 
+        "initial_scale_power": 16, 
+        "hysteresis": 2, 
+        "min_loss_scale": 1
+    }, 
+    "scheduler": {
+        "type": "WarmupLR", 
+        "params": {
+            "warmup_min_lr": 1e-07, 
+            "warmup_max_lr": 0.0001, 
+            "warmup_num_steps": 1000
+        }
+    }, 
+    "zero_optimization": {
+        "stage": 2, 
+        "allgather_partitions": true, 
+        "allgather_bucket_size": 2.000000e+08, 
+        "overlap_comm": true, 
+        "reduce_scatter": true, 
+        "reduce_bucket_size": 2.000000e+08, 
+        "contiguous_gradients": true, 
+        "offload_optimizer": {
+            "device": "cpu", 
+            "pin_memory": true
+        }
+    }, 
+    "wall_clock_breakdown": false, 
+    "gradient_accumulation_steps": 1, 
+    "steps_per_print": inf, 
+    "bf16": {
+        "enabled": false
+    }, 
+    "zero_allow_untested_optimizer": true
+}
+Train Start
+  0%|          | 0/100000 [00:00<?, ?it/s]loss: 0.5069:   0%|          | 0/100000 [00:02<?, ?it/s]
+sampling loop time step:   0%|          | 0/500 [00:00<?, ?it/s][A
+sampling loop time step:   1%|▏         | 7/500 [00:00<00:07, 65.75it/s][A
+sampling loop time step:   4%|▎         | 18/500 [00:00<00:05, 88.85it/s][A
+sampling loop time step:   6%|▌         | 29/500 [00:00<00:04, 96.52it/s][A
+sampling loop time step:   8%|▊         | 40/500 [00:00<00:04, 100.43it/s][A
+sampling loop time step:  10%|█         | 51/500 [00:00<00:04, 102.62it/s][A
+sampling loop time step:  12%|█▏        | 62/500 [00:00<00:04, 103.57it/s][A
+sampling loop time step:  15%|█▍        | 73/500 [00:00<00:04, 104.31it/s][A
+sampling loop time step:  17%|█▋        | 84/500 [00:00<00:03, 104.29it/s][A
+sampling loop time step:  19%|█▉        | 95/500 [00:00<00:03, 104.28it/s][A
+sampling loop time step:  21%|██        | 106/500 [00:01<00:03, 104.22it/s][A
+sampling loop time step:  23%|██▎       | 117/500 [00:01<00:03, 104.38it/s][A
+sampling loop time step:  26%|██▌       | 128/500 [00:01<00:03, 104.34it/s][A
+sampling loop time step:  28%|██▊       | 139/500 [00:01<00:03, 104.35it/s][A
+sampling loop time step:  30%|███       | 150/500 [00:01<00:03, 104.34it/s][A
+sampling loop time step:  32%|███▏      | 161/500 [00:01<00:03, 104.28it/s][A
+sampling loop time step:  34%|███▍      | 172/500 [00:01<00:03, 104.00it/s][A
+sampling loop time step:  37%|███▋      | 183/500 [00:01<00:03, 104.36it/s][A
+sampling loop time step:  39%|███▉      | 194/500 [00:01<00:02, 104.46it/s][A
+sampling loop time step:  41%|████      | 205/500 [00:01<00:02, 104.41it/s][A
+sampling loop time step:  43%|████▎     | 216/500 [00:02<00:02, 104.39it/s][A
+sampling loop time step:  45%|████▌     | 227/500 [00:02<00:02, 104.30it/s][A
+sampling loop time step:  48%|████▊     | 238/500 [00:02<00:02, 104.24it/s][A
+sampling loop time step:  50%|████▉     | 249/500 [00:02<00:02, 104.39it/s][A
+sampling loop time step:  52%|█████▏    | 260/500 [00:02<00:02, 104.39it/s][A
+sampling loop time step:  54%|█████▍    | 271/500 [00:02<00:02, 104.24it/s][A
+sampling loop time step:  56%|█████▋    | 282/500 [00:02<00:02, 104.37it/s][A
+sampling loop time step:  59%|█████▊    | 293/500 [00:02<00:01, 104.30it/s][A
+sampling loop time step:  61%|██████    | 304/500 [00:02<00:01, 104.26it/s][A
+sampling loop time step:  63%|██████▎   | 315/500 [00:03<00:01, 104.39it/s][A
+sampling loop time step:  65%|██████▌   | 326/500 [00:03<00:01, 104.36it/s][A
+sampling loop time step:  67%|██████▋   | 337/500 [00:03<00:01, 104.22it/s][A
+sampling loop time step:  70%|██████▉   | 348/500 [00:03<00:01, 103.87it/s][A
+sampling loop time step:  72%|███████▏  | 359/500 [00:03<00:01, 104.40it/s][A
+sampling loop time step:  74%|███████▍  | 370/500 [00:03<00:01, 104.37it/s][A
+sampling loop time step:  76%|███████▌  | 381/500 [00:03<00:01, 104.51it/s][A
+sampling loop time step:  78%|███████▊  | 392/500 [00:03<00:01, 104.44it/s][A
+sampling loop time step:  81%|████████  | 403/500 [00:03<00:00, 104.42it/s][A
+sampling loop time step:  83%|████████▎ | 414/500 [00:03<00:00, 104.35it/s][A
+sampling loop time step:  85%|████████▌ | 425/500 [00:04<00:00, 104.26it/s][A
+sampling loop time step:  87%|████████▋ | 436/500 [00:04<00:00, 104.27it/s][A
+sampling loop time step:  89%|████████▉ | 447/500 [00:04<00:00, 104.38it/s][A
+sampling loop time step:  92%|█████████▏| 458/500 [00:04<00:00, 104.38it/s][A
+sampling loop time step:  94%|█████████▍| 469/500 [00:04<00:00, 104.34it/s][A
+sampling loop time step:  96%|█████████▌| 480/500 [00:04<00:00, 104.20it/s][A
+sampling loop time step:  98%|█████████▊| 491/500 [00:04<00:00, 104.34it/s][Asampling loop time step: 100%|██████████| 500/500 [00:04<00:00, 103.67it/s]
+slurmstepd: error: *** JOB 732015 ON node30 CANCELLED AT 2024-06-30T17:51:55 ***

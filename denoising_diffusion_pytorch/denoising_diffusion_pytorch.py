@@ -1,3 +1,6 @@
+import json
+import deepspeed
+import gc
 import math
 import copy
 from pathlib import Path
@@ -25,7 +28,7 @@ from PIL import Image
 from tqdm.auto import tqdm
 from ema_pytorch import EMA
 
-from accelerate import Accelerator
+from accelerate import Accelerator, DeepSpeedPlugin
 from accelerate.utils import LoggerType
 
 from denoising_diffusion_pytorch.attend import Attend
@@ -967,7 +970,6 @@ class Trainer:
         super().__init__()
 
         # accelerator
-
         self.accelerator = Accelerator(
             split_batches=split_batches, mixed_precision=mixed_precision_type if amp else "no", log_with="wandb"
         )
@@ -1004,7 +1006,6 @@ class Trainer:
                 }
             },
         )
-
         # model
 
         self.model = diffusion_model
@@ -1054,7 +1055,7 @@ class Trainer:
         # optimizer
 
         self.opt = Adam(diffusion_model.parameters(), lr=train_lr, betas=adam_betas)
-
+        # self.opt = DeepSpeedCPUAdam(diffusion_model.parameters(), lr=train_lr, betas=adam_betas)
         # for logging results in a folder periodically
 
         if self.accelerator.is_main_process:
@@ -1109,6 +1110,14 @@ class Trainer:
     def device(self):
         return self.accelerator.device
 
+    def sample_and_move_to_cpu(self, model, batch_size):
+        with torch.inference_mode():
+            images = model.sample(batch_size=batch_size)
+            cpu_images = images.cpu()
+            del images
+            torch.cuda.empty_cache()
+        return cpu_images
+
     def save(self, milestone):
         if not self.accelerator.is_local_main_process:
             return
@@ -1123,6 +1132,30 @@ class Trainer:
         }
 
         torch.save(data, str(self.results_folder / f"model-{milestone}.pt"))
+
+    def parallel_sample(self, batches):
+        accelerator = self.accelerator
+        device = accelerator.device
+
+        # ema_model = accelerator.prepare(self.ema.ema_model)
+        ema_model = self.ema.ema_model
+        ema_model.eval()
+        all_images_list = []
+
+        for batch_size in batches:
+            local_batch_size = batch_size // 4
+            if accelerator.is_main_process:
+                local_batch_size += batch_size % 4
+
+            with torch.no_grad():
+                # local_images = ema_model.sample(batch_size=local_batch_size)
+                images = accelerator.unwrap_model(ema_model).sample(batch_size=batch_size)
+            gathered_images = accelerator.gather(images)
+
+            if accelerator.is_main_process:
+                all_images_list.append(gathered_images)
+
+        return all_images_list
 
     def load(self, milestone):
         accelerator = self.accelerator
@@ -1147,7 +1180,7 @@ class Trainer:
     def train(self):
         accelerator = self.accelerator
         device = accelerator.device
-
+        print("Train Start")
         with tqdm(initial=self.step, total=self.train_num_steps, disable=not accelerator.is_main_process) as pbar:
 
             while self.step < self.train_num_steps:
@@ -1187,8 +1220,10 @@ class Trainer:
                         with torch.inference_mode():
                             milestone = self.step // self.save_and_sample_every
                             batches = num_to_groups(self.num_samples, self.batch_size)
-                            all_images_list = list(map(lambda n: self.ema.ema_model.sample(batch_size=n), batches))
+                            all_images_list = [self.sample_and_move_to_cpu(self.ema.ema_model, n) for n in batches]
 
+                        torch.cuda.empty_cache()
+                        gc.collect()
                         all_images = torch.cat(all_images_list, dim=0)
 
                         utils.save_image(
@@ -1199,7 +1234,6 @@ class Trainer:
 
                         images_to_log = all_images[:16]
                         image_grid = make_grid(images_to_log, nrow=4, normalize=True, value_range=(-1, 1))
-                        # wandb.log({"generated_images": wandb.Image(image_grid)}, step=self.step)
                         accelerator.log({"generated_images": wandb.Image(image_grid)})
                         # whether to calculate fid
 
