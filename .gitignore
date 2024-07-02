@@ -135,4 +135,4 @@ wandb
 *.ipynb
 *.out
 *.txt
-
+a6000_pretrain.out
