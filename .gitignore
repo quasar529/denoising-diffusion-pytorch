@@ -133,3 +133,6 @@ dmypy.json
 results
 wandb
 *.ipynb
+*.out
+*.txt
+
