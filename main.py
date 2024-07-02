@@ -56,6 +56,7 @@ parser.add_argument("--lr", type=float, default=8e-5, help="Learning rate")
 parser.add_argument("--timesteps", type=int, default=1000, help="Number of timesteps")
 parser.add_argument("--sampling_timesteps", type=int, default=500, help="Number of sampling timesteps")
 parser.add_argument("--save_and_sample_every", type=int, default=10000, help="Save and sample every")
+parser.add_argument("--t0", type=int, default=100, help="Timestep to stop")
 
 args = parser.parse_args()
 
@@ -277,6 +278,7 @@ def train(trainset):
     diffusion = GaussianDiffusion(
         model,
         image_size=args.image_size,
+        t0=args.t0,  # timestep to stop
         timesteps=args.timesteps,  # number of steps
         sampling_timesteps=args.sampling_timesteps,  # number of sampling timesteps (using ddim for faster inference [see citation for ddim paper])
     )
