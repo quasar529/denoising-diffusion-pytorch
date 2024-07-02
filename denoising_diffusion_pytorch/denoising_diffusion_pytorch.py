@@ -896,8 +896,9 @@ class GaussianDiffusion(Module):
             self.t0, self.num_timesteps, (b,), device=device  # t0 부터 전체 timestep 중에서 랜덤하게 샘플링
         ).long()  # 0부터 num_timesteps 사이에서 배치 크기만큼 임의의 시간 단계 t를 샘플링
 
+        t_batched_at_t0 = torch.full((b,), self.t0, device=device, dtype=torch.long)  # t0를 배치 크기만큼 생성
         img = self.normalize(img)
-        t0_img = self.q_sample(x_start=img, t=self.t0)  # t0에서의 이미지 샘플링
+        t0_img = self.q_sample(x_start=img, t=t_batched_at_t0)  # t0에서의 이미지 샘플링
 
         return self.p_losses(t0_img, t, *args, **kwargs)
 
