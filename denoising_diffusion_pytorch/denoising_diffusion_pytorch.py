@@ -508,6 +508,7 @@ class GaussianDiffusion(Module):
         model,
         *,
         image_size,
+        t0=100,
         timesteps=1000,
         sampling_timesteps=None,
         objective="pred_v",
@@ -534,7 +535,7 @@ class GaussianDiffusion(Module):
             isinstance(image_size, (tuple, list)) and len(image_size) == 2
         ), "image size must be a integer or a tuple/list of two integers"
         self.image_size = image_size
-
+        self.t0 = t0
         self.objective = objective
 
         assert objective in {
@@ -750,7 +751,9 @@ class GaussianDiffusion(Module):
         )
 
         times = torch.linspace(
-            -1, total_timesteps - 1, steps=sampling_timesteps + 1
+            self.t0,  # t0 부터 total_timesteps 까지 sampling_timesteps개수 만큼 시간 간격 생성
+            total_timesteps - 1,
+            steps=sampling_timesteps + 1,
         )  # [-1, 0, 1, 2, ..., T-1] when sampling_timesteps == total_timesteps
         times = list(reversed(times.int().tolist()))
         time_pairs = list(zip(times[:-1], times[1:]))  # [(T-1, T-2), (T-2, T-3), ..., (1, 0), (0, -1)]
@@ -868,7 +871,7 @@ class GaussianDiffusion(Module):
             raise ValueError(f"unknown objective {self.objective}")
 
         loss = F.mse_loss(model_out, target, reduction="none")
-        loss = reduce(loss, "b ... -> b", "mean")
+        loss = reduce(loss, "b ... -> b", "mean")  # 배치 전체에 대해 평균 손실을 계산하는데 사용
 
         loss = loss * extract(self.loss_weight, t, loss.shape)  # t번째 마다 각각 다른 weight를 할당
         return loss.mean()
@@ -890,11 +893,13 @@ class GaussianDiffusion(Module):
             h == img_size[0] and w == img_size[1]
         ), f"height and width of image must be {img_size}"  # 이미지의 높이와 너비가 설정된 이미지 크기와 일치하는지 확인
         t = torch.randint(
-            0, self.num_timesteps, (b,), device=device
+            self.t0, self.num_timesteps, (b,), device=device  # t0 부터 전체 timestep 중에서 랜덤하게 샘플링
         ).long()  # 0부터 num_timesteps 사이에서 배치 크기만큼 임의의 시간 단계 t를 샘플링
 
         img = self.normalize(img)
-        return self.p_losses(img, t, *args, **kwargs)
+        t0_img = self.q_sample(x_start=img, t=self.t0)  # t0에서의 이미지 샘플링
+
+        return self.p_losses(t0_img, t, *args, **kwargs)
 
 
 # dataset classes
