@@ -1,6 +1,6 @@
 {
     "zero_force_ds_cpu_optimizer": false,
-    "train_batch_size": 2048,
+    "train_batch_size": 4096,
     "train_micro_batch_size_per_gpu": 512,
     "fp16": {
         "enabled": false,
@@ -13,7 +13,7 @@
     "scheduler": {
         "type": "WarmupLR",
         "params": {
-            "warmup_min_lr": 1e-7,
+            "warmup_min_lr": 1e-8,
             "warmup_max_lr": 1e-4,
             "warmup_num_steps": 1000
         }

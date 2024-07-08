@@ -34,7 +34,6 @@ from accelerate.utils import LoggerType
 from denoising_diffusion_pytorch.attend import Attend
 
 from denoising_diffusion_pytorch.version import __version__
-
 # constants
 
 ModelPrediction = namedtuple("ModelPrediction", ["pred_noise", "pred_x_start"])
@@ -1220,17 +1219,31 @@ class Trainer:
                         with torch.inference_mode():
                             milestone = self.step // self.save_and_sample_every
                             batches = num_to_groups(self.num_samples, self.batch_size)
-                            all_images_list = [self.sample_and_move_to_cpu(self.ema.ema_model, n) for n in batches]
+                            #all_images_list = [self.sample_and_move_to_cpu(self.ema.ema_model, n) for n in batches]
+                            all_images_list = []
 
-                        torch.cuda.empty_cache()
-                        gc.collect()
+                        for n in batches:
+                            sample_batch = self.ema.ema_model.sample(batch_size=n)
+                            gathered_samples = accelerator.gather(sample_batch)
+                            all_images_list.append(gathered_samples)
+
                         all_images = torch.cat(all_images_list, dim=0)
 
-                        utils.save_image(
-                            all_images,
-                            str(self.results_folder / f"sample-{milestone}.png"),
-                            nrow=int(math.sqrt(self.num_samples)),
-                        )
+                        if accelerator.is_main_process:
+                            utils.save_image(
+                                all_images,
+                                str(self.results_folder / f"sample-{milestone}.png"),
+                                nrow=int(math.sqrt(self.num_samples)),
+                            )
+                        #torch.cuda.empty_cache()
+                        #gc.collect()
+                        #all_images = torch.cat(all_images_list, dim=0)
+
+                        #utils.save_image(
+                        #    all_images,
+                        #    str(self.results_folder / f"sample-{milestone}.png"),
+                        #    nrow=int(math.sqrt(self.num_samples)),
+                        #)
 
                         images_to_log = all_images[:16]
                         image_grid = make_grid(images_to_log, nrow=4, normalize=True, value_range=(-1, 1))
